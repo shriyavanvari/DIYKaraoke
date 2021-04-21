@@ -37,6 +37,9 @@ function SignIn(props) {
       <TouchableOpacity style={styles.loginButton}>
         <Button title="LOGIN" color="black" />
       </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.register}>New User? Register Here</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: "70%",
     height: 45,
-    marginBottom: 20, //adding distance between two fields
+    marginBottom: 30, //adding distance between two fields
     alignItems: "center",
   },
   inputFields: {
@@ -76,6 +79,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#ff33cc",
+    marginBottom: 30,
+  },
+  register: {
+    height: 50,
+    marginBottom: 50,
+    color: "blue",
   },
 });
 export default SignIn;

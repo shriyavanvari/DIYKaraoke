@@ -1,6 +1,7 @@
 import React from "react";
 import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
-function WelcomeScreen(props) {
+
+function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       style={styles.background}
@@ -11,7 +12,12 @@ function WelcomeScreen(props) {
         <Text style={styles.title}>DIY Karaoke</Text>
       </View>
       <View style={styles.loginButton}>
-        <Text style={styles.buttonText}>LOGIN</Text>
+        <Text
+          style={styles.buttonText}
+          onPress={() => navigation.navigate("SignIn")}
+        >
+          LOGIN
+        </Text>
       </View>
       <View style={styles.signUpButton}>
         <Text style={styles.buttonText}>SIGN UP</Text>
