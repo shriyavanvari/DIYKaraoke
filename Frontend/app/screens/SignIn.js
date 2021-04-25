@@ -1,3 +1,4 @@
+import { connect } from "formik";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -9,34 +10,64 @@ import {
   Button,
 } from "react-native";
 
+import accountAPI from "../api/account";
+
 function SignIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSignIn = async () => {
+    console.log("sign in");
+
+    data = {
+      username: email,
+      password: password,
+    };
+    console.log(data);
+    const result = await accountAPI.signIn(data);
+    if (!result.ok) return alert("Could not sign in successfully");
+    alert("Success");
+  };
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
+
       <View style={styles.inputView}>
         <TextInput
-          style={styles.inputFields}
+          autoCorrect={false}
+          autoCapitalize="none"
+          icon="email"
+          keyboardType="email-address"
+          onChangeText={(email) => setEmail(email)}
           placeholder="Email"
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          style={styles.inputFields}
+          textContentType="emailAddress"
         />
       </View>
+
       <View style={styles.inputView}>
         <TextInput
-          style={styles.inputFields}
+          autoCorrect={false}
+          autoCapitalize="none"
+          icon="lock"
+          onChangeText={(password) => setPassword(password)}
           placeholder="Password"
           placeholderTextColor="#003f5c"
-          onChangeText={(password) => setPassword(password)}
+          secureTextEntry={true}
+          style={styles.inputFields}
+          textContentType="password"
         />
       </View>
+
       <TouchableOpacity>
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.loginButton}>
-        <Button title="LOGIN" color="black" />
+        <Button title="LOGIN" color="black" onPress={handleSignIn} />
       </TouchableOpacity>
+
       <TouchableOpacity>
         <Text style={styles.register}>New User? Register Here</Text>
       </TouchableOpacity>
