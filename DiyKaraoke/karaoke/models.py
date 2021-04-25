@@ -1,6 +1,8 @@
 from djongo import models
 from djongo.storage import GridFSStorage
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 Seasons_choices = (
     ("Spring","spring"),
@@ -28,6 +30,24 @@ class Songs(models.Model):
 
     def __str__(self):
         return self.title
+
+class CustomUser(AbstractUser):
+    username = models.CharField(blank=True, null = True,max_length = 10)
+    email = models.EmailField(_('email address'),unique = True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username','first_name','last_name']
+
+    def __str__(self):
+        return "{}".format(self.email)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
+    fav_artist = models.JSONField(blank=True)
+    fav_genre = models.JSONField(blank= True)
+    language = models.CharField(blank=True, max_length=12)
+    country = models.CharField(blank=True, max_length = 12)
+
 
 
 

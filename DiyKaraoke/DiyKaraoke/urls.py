@@ -1,7 +1,8 @@
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import include
+from django.conf.urls import url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('karaoke.urls')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^api/', include('karaoke.urls')),
 ]
