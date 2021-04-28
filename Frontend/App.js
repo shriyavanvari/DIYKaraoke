@@ -10,6 +10,7 @@ import SignUp1 from "./app/screens/SignUp1";
 import SignUp2 from "./app/screens/SignUp2";
 import SignUp3 from "./app/screens/SignUp3";
 import SearchSongs from "./app/screens/SearchSongs";
+import KaraokePlayer from "./app/screens/KaraokePlayer";
 
 const AppNavigator = createStackNavigator(); //
 
@@ -53,6 +54,12 @@ export default function App() {
           name="SearchSongs"
           component={SearchSongs}
           options={{ title: "Songs Playlist" }}
+        />
+
+        <AppNavigator.Screen
+          name="KaraokePlayer"
+          component={KaraokePlayer}
+          options={{ title: "Karaoke Player" }}
         />
       </AppNavigator.Navigator>
     </NavigationContainer>
