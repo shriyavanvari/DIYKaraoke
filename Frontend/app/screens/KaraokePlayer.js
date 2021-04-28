@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { Audio } from "expo-av";
 
 const song = {
@@ -9,18 +16,17 @@ const song = {
 
 export default function KaraokePlayer({ navigation }) {
   const [sound, setSound] = React.useState();
+  const [isPlaying, setIsPlaying] = React.useState(false);
+
   const onPlaybackStatusUpdate = (status) => {
-    console.log(status);
+    setIsPlaying(status.isPlaying);
   };
 
   const playCurrentSong = async () => {
     console.log("Loading Sound");
-    const { sound } = Audio.Sound.createAsync(
-      {
-        uri:
-          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_1MG.mp3",
-      },
-      { shouldPlay: true },
+    const { sound } = await Audio.Sound.createAsync(
+      { uri: song.uri },
+      { shouldPlay: isPlaying },
       onPlaybackStatusUpdate
     );
     setSound(sound);
@@ -30,15 +36,39 @@ export default function KaraokePlayer({ navigation }) {
   React.useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
+          console.log("Unloading Sound"); //ensure song only played once
           sound.unloadAsync();
         }
       : undefined;
   }, [sound]);
 
+  const onPlayPausePress = async () => {
+    if (!sound) {
+      return;
+    }
+    if (isPlaying) {
+      await sound.stopAsync();
+    } else {
+      await sound.playAsync();
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Button title="Play Sound" onPress={playCurrentSong} />
+      {!isPlaying ? (
+        <TouchableOpacity onPress={onPlayPausePress}>
+          <View style={styles.playButton}>
+            <Image source={require("../assets/ic_pause_white_48pt.png")} />
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={onPlayPausePress}>
+          <View style={styles.playButton}>
+            <Image source={require("../assets/ic_play_arrow_white_48pt.png")} />
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
