@@ -9,6 +9,10 @@ import {
 } from "react-native";
 import { Audio } from "expo-av";
 
+import Header from "./Header";
+import AlbumArt from "./AlbumArt";
+import TrackDetails from "./TrackDetails";
+
 export default function Player(props) {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -67,9 +71,14 @@ export default function Player(props) {
 
   return (
     <View style={styles.container}>
-      <Button title="Play Sound" onPress={playCurrentSong} />
-      <Text>{getProgress()}</Text>
-      {!isPlaying ? (
+      <Header message="Playing from charts" />
+      <AlbumArt url={song.albumArtUrl} />
+      <TrackDetails title={song.title} artist={song.artist} />
+      <Text onPress={playCurrentSong} style={styles.startKaraoke}>
+        Start Karaoke!
+      </Text>
+      {/* <Text>{getProgress()}</Text> */}
+      {isPlaying ? (
         <TouchableOpacity onPress={onPlayPausePress}>
           <View style={styles.playButton}>
             <Image source={require("../assets/ic_pause_white_48pt.png")} />
@@ -88,7 +97,23 @@ export default function Player(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#4d4dff",
+  },
+  startKaraoke: {
+    color: "rgba(255, 255, 255, 0.72)",
+    fontSize: 20,
+    marginTop: 10,
+    fontWeight: "bold",
+  },
+  playButton: {
+    height: 72,
+    width: 72,
+    borderWidth: 1,
+    borderColor: "white",
+    borderRadius: 72 / 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
