@@ -12,7 +12,7 @@ import {
 
 import accountAPI from "../api/account";
 
-function SignIn(props) {
+function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,8 +25,9 @@ function SignIn(props) {
     };
     console.log(data);
     const result = await accountAPI.signIn(data);
-    if (!result.ok) return alert("Could not sign in successfully");
-    alert("Success");
+    // if (!result.ok) return alert("Could not sign in successfully");
+    // alert("Success");
+    navigation.navigate("SearchSongs");
   };
   return (
     <View style={styles.container}>
@@ -69,7 +70,12 @@ function SignIn(props) {
       </TouchableOpacity>
 
       <TouchableOpacity>
-        <Text style={styles.register}>New User? Register Here</Text>
+        <Text
+          style={styles.register}
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          New User? Register Here
+        </Text>
       </TouchableOpacity>
     </View>
   );

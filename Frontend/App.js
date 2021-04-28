@@ -1,14 +1,15 @@
 import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SignIn from "./app/screens/SignIn";
-import { render } from "react-dom";
-import { StackRouter } from "react-navigation";
+import SignUp from "./app/screens/SignUp";
+import SignUp1 from "./app/screens/SignUp1";
+import SignUp2 from "./app/screens/SignUp2";
+import SignUp3 from "./app/screens/SignUp3";
+import SearchSongs from "./app/screens/SearchSongs";
 
 const AppNavigator = createStackNavigator(); //
 
@@ -25,6 +26,33 @@ export default function App() {
           name="SignIn"
           component={SignIn}
           options={{ title: "Login" }}
+        />
+
+        <AppNavigator.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{ title: "Register" }}
+        />
+
+        <AppNavigator.Screen
+          name="SignUp1"
+          component={SignUp1}
+          options={{ title: "Register" }}
+        />
+        <AppNavigator.Screen
+          name="SignUp2"
+          component={SignUp2}
+          options={{ title: "Register" }}
+        />
+        <AppNavigator.Screen
+          name="SignUp3"
+          component={SignUp3}
+          options={{ title: "Register" }}
+        />
+        <AppNavigator.Screen
+          name="SearchSongs"
+          component={SearchSongs}
+          options={{ title: "Songs Playlist" }}
         />
       </AppNavigator.Navigator>
     </NavigationContainer>
