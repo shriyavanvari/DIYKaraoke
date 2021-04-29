@@ -20,7 +20,12 @@ function WelcomeScreen({ navigation }) {
         </Text>
       </View>
       <View style={styles.signUpButton}>
-        <Text style={styles.buttonText}>SIGN UP</Text>
+        <Text
+          style={styles.buttonText}
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          SIGN UP
+        </Text>
       </View>
     </ImageBackground>
   );

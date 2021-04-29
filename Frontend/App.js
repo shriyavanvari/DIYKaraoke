@@ -11,6 +11,8 @@ import SignUp2 from "./app/screens/SignUp2";
 import SignUp3 from "./app/screens/SignUp3";
 import SearchSongs from "./app/screens/SearchSongs";
 import KaraokePlayer from "./app/screens/KaraokePlayer";
+import Option from "./app/screens/Option";
+import RecognizeSong from "./app/screens/RecognizeSong";
 
 const AppNavigator = createStackNavigator(); //
 
@@ -60,6 +62,16 @@ export default function App() {
           name="KaraokePlayer"
           component={KaraokePlayer}
           options={{ title: "Karaoke Player" }}
+        />
+        <AppNavigator.Screen
+          name="Option"
+          component={Option}
+          options={{ title: "Pick Input" }}
+        />
+        <AppNavigator.Screen
+          name="RecognizeSong"
+          component={RecognizeSong}
+          options={{ title: "Pick Input" }}
         />
       </AppNavigator.Navigator>
     </NavigationContainer>

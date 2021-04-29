@@ -56,7 +56,7 @@ function SignUp3({ navigation }) {
         <Button
           title="Complete Registration"
           color="black"
-          onPress={() => navigation.navigate("SearchSongs")}
+          onPress={() => navigation.navigate("SignIn")}
         ></Button>
       </TouchableOpacity>
     </SafeAreaView>

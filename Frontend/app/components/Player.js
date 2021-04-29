@@ -12,6 +12,7 @@ import { Audio } from "expo-av";
 import Header from "./Header";
 import AlbumArt from "./AlbumArt";
 import TrackDetails from "./TrackDetails";
+import SeekBar from "./SeekBar";
 
 export default function Player(props) {
   const [sound, setSound] = useState();
@@ -69,6 +70,17 @@ export default function Player(props) {
     return (position / duration) * 100;
   };
 
+  const seek = (time) => {
+    time = Math.round;
+    if (!sound) {
+      return;
+    } else {
+      sound.seek(time);
+      setPosition(time);
+      setIsPlaying(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header message="Playing from charts" />
@@ -78,19 +90,46 @@ export default function Player(props) {
         Start Karaoke!
       </Text>
       {/* <Text>{getProgress()}</Text> */}
-      {isPlaying ? (
-        <TouchableOpacity onPress={onPlayPausePress}>
-          <View style={styles.playButton}>
-            <Image source={require("../assets/ic_pause_white_48pt.png")} />
-          </View>
+      {/* <SeekBar
+        currentPosition={position}
+        trackLength={1}
+        onSeek={seek}
+        onSlidingStart={() => setIsPlaying(false)}
+      /> */}
+      <View style={styles.controlContainer}>
+        <View style={{ width: 40 }} />
+
+        <TouchableOpacity>
+          <Image
+            source={require("../assets/ic_skip_previous_white_36pt.png")}
+          />
         </TouchableOpacity>
-      ) : (
-        <TouchableOpacity onPress={onPlayPausePress}>
-          <View style={styles.playButton}>
-            <Image source={require("../assets/ic_play_arrow_white_48pt.png")} />
-          </View>
+        <View style={{ width: 20 }} />
+
+        {isPlaying ? (
+          <TouchableOpacity onPress={onPlayPausePress}>
+            <View style={styles.playButton}>
+              <Image source={require("../assets/ic_pause_white_48pt.png")} />
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={onPlayPausePress}>
+            <View style={styles.playButton}>
+              <Image
+                source={require("../assets/ic_play_arrow_white_48pt.png")}
+              />
+            </View>
+          </TouchableOpacity>
+        )}
+        <View style={{ width: 20 }} />
+        <TouchableOpacity>
+          <Image
+            // style={{ opacity: 0.3 }}
+            source={require("../assets/ic_skip_next_white_36pt.png")}
+          />
         </TouchableOpacity>
-      )}
+        <View style={{ width: 40 }} />
+      </View>
     </View>
   );
 }
@@ -115,5 +154,11 @@ const styles = StyleSheet.create({
     borderRadius: 72 / 2,
     alignItems: "center",
     justifyContent: "center",
+  },
+  controlContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 8,
   },
 });

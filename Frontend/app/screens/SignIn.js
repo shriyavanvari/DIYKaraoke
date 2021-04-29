@@ -27,7 +27,7 @@ function SignIn({ navigation }) {
     const result = await accountAPI.signIn(data);
     // if (!result.ok) return alert("Could not sign in successfully");
     // alert("Success");
-    navigation.navigate("SearchSongs");
+    navigation.navigate("Option");
   };
   return (
     <View style={styles.container}>
