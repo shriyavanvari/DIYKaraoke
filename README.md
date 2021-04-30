@@ -26,6 +26,8 @@ pip install djongo
 
 pip3 install djangorestframework
 
+python -m pip install Pillow
+
 
 
 
