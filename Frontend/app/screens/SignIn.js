@@ -24,9 +24,9 @@ function SignIn({ navigation }) {
       password: password,
     };
     console.log(data);
-    //const result = await accountAPI.signIn(data);
-    // if (!result.ok) return alert("Could not sign in successfully");
-    // alert("Success");
+    const result = await accountAPI.signIn(data);
+    if (!result.ok) return alert("Could not sign in successfully");
+    alert("Success");
     navigation.navigate("Option");
   };
   return (
@@ -69,7 +69,7 @@ function SignIn({ navigation }) {
         <Button
           title="LOGIN"
           color="black"
-          onPress={navigation.navigate("Option")}
+          onPress={() => navigation.navigate("Option")}
         />
       </TouchableOpacity>
 
