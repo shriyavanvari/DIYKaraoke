@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import {
   SafeAreaView,
@@ -15,44 +15,125 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 function SearchSongs({ navigation }) {
   const [search, setSearch] = useState("");
-  const tracks = [
-    {
-      id: 1,
-      title: "Stressed Out",
-      artist: "Twenty One Pilots",
-      albumArtUrl:
-        "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
-      audioUrl:
-        "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
-    },
-    {
-      id: 2,
-      title: "Love Yourself",
-      artist: "Justin Bieber",
-      albumArtUrl:
-        "http://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg",
-      audioUrl:
-        "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
-    },
-    {
-      id: 3,
-      title: "Hotline Bling",
-      artist: "Drake",
-      albumArtUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png",
-      audioUrl:
-        "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
-    },
-  ];
+  const [tracks, setTracks] = useState([]);
+  const [filteredTracks, setFilteredTracks] = useState([]);
+
+  useEffect(() => {
+    const response = [
+      {
+        id: 1,
+        title: "Stressed Out",
+        artist: "Twenty One Pilots",
+        albumArtUrl:
+          "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+      {
+        id: 2,
+        title: "Love Yourself",
+        artist: "Justin Bieber",
+        albumArtUrl:
+          "http://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+      {
+        id: 3,
+        title: "Hotline Bling",
+        artist: "Drake",
+        albumArtUrl:
+          "https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+    ];
+    setFilteredTracks([
+      {
+        id: 1,
+        title: "Stressed Out",
+        artist: "Twenty One Pilots",
+        albumArtUrl:
+          "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+      {
+        id: 2,
+        title: "Love Yourself",
+        artist: "Justin Bieber",
+        albumArtUrl:
+          "http://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+      {
+        id: 3,
+        title: "Hotline Bling",
+        artist: "Drake",
+        albumArtUrl:
+          "https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+    ]);
+    setTracks([
+      {
+        id: 1,
+        title: "Stressed Out",
+        artist: "Twenty One Pilots",
+        albumArtUrl:
+          "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+      {
+        id: 2,
+        title: "Love Yourself",
+        artist: "Justin Bieber",
+        albumArtUrl:
+          "http://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+      {
+        id: 3,
+        title: "Hotline Bling",
+        artist: "Drake",
+        albumArtUrl:
+          "https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png",
+        audioUrl:
+          "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+      },
+    ]);
+  }, []);
 
   updateSearch = (search) => {
     setSearch(search);
   };
 
-  // const getItem = (data, index) => ({
-  //   id: Math.random().toString(12).substring(0),
-  //   title: `Song ${index + 1}`,
-  // });
+  const searchFilterFunction = (text) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = tracks.filter(function (song) {
+        const songData = song.title
+          ? song.title.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return songData.indexOf(textData) > -1;
+      });
+      setFilteredTracks(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredTracks(tracks);
+      setSearch(text);
+    }
+  };
 
   renderItem = ({ item, index }) => {
     const key = item.id;
@@ -62,46 +143,34 @@ function SearchSongs({ navigation }) {
           navigation.navigate("KaraokePlayer", { paramKey: { key } })
         }
       >
-        <Image
-          style={styles.image}
-          source={{
-            uri:
-              "https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png",
-          }}
-        />
-        <Text>{item.title}</Text>
+        <View style={styles.cardContainer}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: item.albumArtUrl,
+            }}
+          />
+          <View style={styles.cardText}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.artist}>{item.artist}</Text>
+          </View>
+        </View>
       </TouchableWithoutFeedback>
     );
   };
-
-  const getItemCount = (data) => 50;
-
-  const Item = ({ title }) => (
-    <View style={styles.cardContainer}>
-      <TouchableOpacity>
-        <Text style={styles.title}>{title}</Text>
-      </TouchableOpacity>
-    </View>
-  );
 
   return (
     <SafeAreaView style={styles.container}>
       <SearchBar
         style={styles.searchArea}
         placeholder="Type Here..."
-        onChangeText={updateSearch}
+        onChangeText={(text) => searchFilterFunction(text)}
         value={search}
       />
-      <Text
-        style={styles.textHeader}
-        onPress={() => navigation.navigate("KaraokePlayer")}
-      >
-        Songs You May Like:
-      </Text>
 
-      <View style={styles.cardContainer}>
+      <View>
         <FlatList
-          data={tracks}
+          data={filteredTracks}
           keyExtractor={(item, index) => {
             index.toString();
           }}
@@ -115,6 +184,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight,
+    alignContent: "center",
   },
   item: {
     backgroundColor: "#f9c2ff",
@@ -127,24 +197,43 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
   },
-  searchArea: {},
+  searchArea: {
+    // paddingBottom: 20,
+    //backgroundColor: "deeppink",
+  },
   textHeader: {
     color: "deeppink",
-    marginTop: 10,
+    marginTop: 20,
     fontSize: 20,
-    marginLeft: 17,
     fontWeight: "bold",
   },
   image: {
     width: 70,
     height: 70,
   },
-  // cardContainer: {
-  //   height: 70,
-  //   width: "100%",
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   alignItems: "center",
-  // },
+  cardContainer: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "#f9c2ff",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    marginTop: 2,
+  },
+  title: {
+    marginLeft: 10,
+    marginTop: 15,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
+  },
+  artist: {
+    color: "rgba(255, 255, 255, 0.72)",
+    fontSize: 12,
+    marginLeft: 10,
+    paddingTop: 10,
+  },
+  cardText: {
+    flexDirection: "column",
+  },
 });
 export default SearchSongs;
