@@ -1,9 +1,10 @@
 import React from "react";
 import Player from "../components/Player";
-
-export default function KaraokePlayer(props) {
-  const TRACKS = [
+import { Text } from "react-native";
+export default function KaraokePlayer({ props, route }) {
+  const tracks = [
     {
+      id: 1,
       title: "Stressed Out",
       artist: "Twenty One Pilots",
       albumArtUrl:
@@ -12,6 +13,7 @@ export default function KaraokePlayer(props) {
         "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
     },
     {
+      id: 2,
       title: "Love Yourself",
       artist: "Justin Bieber",
       albumArtUrl:
@@ -20,6 +22,7 @@ export default function KaraokePlayer(props) {
         "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
     },
     {
+      id: 3,
       title: "Hotline Bling",
       artist: "Drake",
       albumArtUrl:
@@ -28,5 +31,10 @@ export default function KaraokePlayer(props) {
         "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
     },
   ];
-  return <Player tracks={TRACKS} selectedTrackNumber={1} />;
+
+  const selectedTrackNumber = route.params.paramKey;
+  return (
+    <Player tracks={tracks} selectedTrackNumber={route.params.paramKey.key} />
+  );
+  // return <Text>{selectedTrackNumber}</Text>;
 }

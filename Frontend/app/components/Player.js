@@ -20,10 +20,11 @@ export default function Player(props) {
   const [duration, setDuration] = useState(null);
   const [position, setPosition] = useState(null);
   const [selectedTrackNumber, setSelectedTrackNumber] = useState(
-    props.selectedTrackNumber
+    props.selectedTrackNumber - 1
   );
-
+  console.log(props);
   const song = props.tracks[selectedTrackNumber];
+
   const onPlaybackStatusUpdate = (status) => {
     setIsPlaying(status.isPlaying);
     setDuration(status.durationMillis);
@@ -79,6 +80,19 @@ export default function Player(props) {
       setPosition(time);
       setIsPlaying(true);
     }
+  };
+
+  const onForward = async () => {
+    let curr_track = playlist[current_track];
+    let current_index = playlist.indexOf(curr_track) + 1;
+    if (current_index === playlist.length) {
+      setCurrentTrack(1);
+    } else {
+      setCurrentTrack((current_track) => current_track + 1);
+    }
+    onStopPress().then(async () => {
+      await onStartPress();
+    });
   };
 
   return (
