@@ -9,3 +9,11 @@ class RecSysViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = listenCountSerializer
+
+
+class UtilityViewSet(viewsets.ModelViewSet):
+    queryset = song_listen_count.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = listenCountSerializer
