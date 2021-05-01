@@ -47,4 +47,7 @@ End points:
 
 1) To input listen_count for recommender system: http://127.0.0.1:8000/recsys/increase_listen_count/
 
+2) To input ratings (like=5, dislike-0): http://127.0.0.1:8000/recsys/rating/
+
+
 	Quick link: https://github.com/shriyavanvari/DIYKaraoke/tree/Manasa/DiyKaraoke/ ---> recsys
