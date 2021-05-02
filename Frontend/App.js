@@ -14,6 +14,7 @@ import KaraokePlayer from "./app/screens/KaraokePlayer";
 import Option from "./app/screens/Option";
 import RecognizeSong from "./app/screens/RecognizeSong";
 
+
 const AppNavigator = createStackNavigator(); //
 
 export default function App() {
@@ -61,7 +62,9 @@ export default function App() {
         <AppNavigator.Screen
           name="KaraokePlayer"
           component={KaraokePlayer}
-          options={{ title: "Karaoke Player" }}
+          options={
+            { title: "Karaoke Player" }
+        }
         />
         <AppNavigator.Screen
           name="Option"

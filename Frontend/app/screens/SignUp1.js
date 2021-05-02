@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -9,8 +9,20 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { Icon } from 'react-native-elements';
 
 function SignUp1({ navigation }) {
+  const [buttonName, setButtonName] = useState("square-o"); 
+  const changeButtonName = ()=>{
+    
+    if(buttonName=="square-o")
+    {
+    setButtonName("check-square-o")
+    }
+    else{
+      setButtonName("square-o")
+    }
+  }
   return (
     <ScrollView contentContainerStyle={styles.scrollContentContainer}>
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
@@ -24,6 +36,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -38,7 +51,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              Charlie Puth
+              <Icon
+              name={buttonName}
+              type="font-awesome"></Icon>
+                      Charlie Puth
             </Text>
           </TouchableOpacity>
         </View>
@@ -50,6 +66,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -110 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -64,6 +81,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Ed Sheeran
             </Text>
           </TouchableOpacity>
@@ -76,6 +97,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -220 }, { translateX: 110 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -90,6 +112,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Niall Horan
             </Text>
           </TouchableOpacity>
@@ -104,6 +130,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }, { translateY: -220 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -118,6 +145,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Nick Jonas
             </Text>
           </TouchableOpacity>
@@ -130,6 +161,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -330 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -144,6 +176,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               James Arthur
             </Text>
           </TouchableOpacity>
@@ -156,6 +192,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -440 }, { translateX: 110 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -170,6 +207,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Calum Scott
             </Text>
           </TouchableOpacity>
@@ -184,6 +225,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }, { translateY: -440 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -198,6 +240,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Justin Bieber
             </Text>
           </TouchableOpacity>
@@ -210,6 +256,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -110 }, { translateY: -440 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -224,6 +271,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Taylor Swift
             </Text>
           </TouchableOpacity>
@@ -236,6 +287,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -660 }, { translateX: 110 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -250,6 +302,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Rihanna
             </Text>
           </TouchableOpacity>
@@ -264,6 +320,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }, { translateY: -660 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -278,6 +335,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Beyonce
             </Text>
           </TouchableOpacity>
@@ -290,6 +351,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -770 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -304,6 +366,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               Ariana Grande
             </Text>
           </TouchableOpacity>
@@ -316,6 +382,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -880 }, { translateX: 110 }],
               },
             ]}
+            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -330,6 +397,10 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
+              <Icon
+              name={buttonName}
+              type="font-awesome"
+              ></Icon>
               One Direction
             </Text>
           </TouchableOpacity>

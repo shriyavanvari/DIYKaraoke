@@ -16,7 +16,8 @@ function SignUp2({ navigation }) {
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
       <Text>Select Your Favorite Genres{"\n"}</Text>
       <SafeAreaView style={styles.container}>
-        <View
+        <View>
+        <TouchableOpacity
           style={[
             styles.box,
             {
@@ -34,8 +35,10 @@ function SignUp2({ navigation }) {
           >
             Pop
           </Text>
+        </TouchableOpacity>
         </View>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -53,8 +56,10 @@ function SignUp2({ navigation }) {
           >
             Classical
           </Text>
+          </TouchableOpacity>
         </View>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -72,10 +77,12 @@ function SignUp2({ navigation }) {
           >
             Hiphop
           </Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
       <SafeAreaView style={styles.container}>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -93,8 +100,10 @@ function SignUp2({ navigation }) {
           >
             Romantic
           </Text>
+          </TouchableOpacity>
         </View>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -112,8 +121,10 @@ function SignUp2({ navigation }) {
           >
             Bollywood
           </Text>
+          </TouchableOpacity>
         </View>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -131,10 +142,12 @@ function SignUp2({ navigation }) {
           >
             Party
           </Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
       <SafeAreaView style={styles.container}>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -152,8 +165,11 @@ function SignUp2({ navigation }) {
           >
             Trip
           </Text>
+          </TouchableOpacity>
         </View>
-        <View
+
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -171,8 +187,10 @@ function SignUp2({ navigation }) {
           >
             Workout
           </Text>
+          </TouchableOpacity>
         </View>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -190,10 +208,12 @@ function SignUp2({ navigation }) {
           >
             Feel Good
           </Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
       <SafeAreaView style={styles.container}>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -211,8 +231,10 @@ function SignUp2({ navigation }) {
           >
             Happy
           </Text>
+          </TouchableOpacity>
         </View>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -230,8 +252,10 @@ function SignUp2({ navigation }) {
           >
             Chill
           </Text>
+          </TouchableOpacity>
         </View>
-        <View
+        <View>
+          <TouchableOpacity
           style={[
             styles.box,
             {
@@ -249,6 +273,7 @@ function SignUp2({ navigation }) {
           >
             Hits
           </Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
       <SafeAreaView style={styles.container}>

@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Audio } from "expo-av";
 
+import { Audio } from "expo-av";
 import Header from "./Header";
 import AlbumArt from "./AlbumArt";
 import TrackDetails from "./TrackDetails";
 import SeekBar from "./SeekBar";
+import { Icon } from 'react-native-elements';
+
 
 export default function Player(props) {
   const [sound, setSound] = useState();
@@ -22,6 +24,9 @@ export default function Player(props) {
   const [selectedTrackNumber, setSelectedTrackNumber] = useState(
     props.selectedTrackNumber - 1
   );
+  const [buttonName, setButtonName] = useState("heart-o");
+
+  //make changes
   console.log(props);
   const song = props.tracks[selectedTrackNumber];
 
@@ -81,7 +86,19 @@ export default function Player(props) {
       setIsPlaying(true);
     }
   };
-
+  
+  const changeButtonName = ()=>{
+    
+    if(buttonName=="heart-o")
+    {
+    setButtonName("heart")
+    //Increase count
+    }
+    else{
+      setButtonName("heart-o")
+      //decrease count
+    }
+  }
   const onForward = async () => {
     let curr_track = playlist[current_track];
     let current_index = playlist.indexOf(curr_track) + 1;
@@ -103,6 +120,12 @@ export default function Player(props) {
       <Text onPress={playCurrentSong} style={styles.startKaraoke}>
         Start Karaoke!
       </Text>
+      <Icon
+      raised
+      name={buttonName}
+      type="font-awesome"
+      onPress={changeButtonName}></Icon>
+      {/* <FavoriteIcon></FavoriteIcon> */}
       {/* <Text>{getProgress()}</Text> */}
       {/* <SeekBar
         currentPosition={position}
@@ -112,7 +135,7 @@ export default function Player(props) {
       /> */}
       <View style={styles.controlContainer}>
         <View style={{ width: 40 }} />
-
+       
         <TouchableOpacity>
           <Image
             source={require("../assets/ic_skip_previous_white_36pt.png")}
