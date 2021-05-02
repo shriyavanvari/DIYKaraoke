@@ -15,15 +15,25 @@ import TrackDetails from "./TrackDetails";
 import SeekBar from "./SeekBar";
 
 export default function Player(props) {
+  const tracks = props.tracks;
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(null);
   const [position, setPosition] = useState(null);
-  const [selectedTrackNumber, setSelectedTrackNumber] = useState(
+  const [currentTrackNumber, setCurrentTrackNumber] = useState(
     props.selectedTrackNumber - 1
   );
-  console.log(props);
-  const song = props.tracks[selectedTrackNumber];
+  //console.log(props);
+  // const song = props.tracks[selectedTrackNumber];
+
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          console.log("Unloading Sound"); //ensure song only played once
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
 
   const onPlaybackStatusUpdate = (status) => {
     setIsPlaying(status.isPlaying);
@@ -34,24 +44,15 @@ export default function Player(props) {
 
   const playCurrentSong = async () => {
     console.log("Loading Sound");
-    console.log(song.audioUrl);
+    console.log(tracks[currentTrackNumber].audioUrl);
     const { sound } = await Audio.Sound.createAsync(
-      { uri: song.audioUrl },
+      { uri: tracks[currentTrackNumber].audioUrl },
       { shouldPlay: isPlaying },
       onPlaybackStatusUpdate
     );
     setSound(sound);
     await sound.playAsync();
   };
-
-  React.useEffect(() => {
-    return sound
-      ? () => {
-          console.log("Unloading Sound"); //ensure song only played once
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
 
   const onPlayPausePress = async () => {
     if (!sound) {
@@ -64,42 +65,52 @@ export default function Player(props) {
     }
   };
 
-  const getProgress = () => {
-    if ((sound == null) | (duration == null) || position == null) {
-      return 0;
-    }
-    return (position / duration) * 100;
-  };
-
-  const seek = (time) => {
-    time = Math.round;
-    if (!sound) {
-      return;
-    } else {
-      sound.seek(time);
-      setPosition(time);
-      setIsPlaying(true);
+  const handlePreviousTrack = async () => {
+    if (sound) {
+      await sound.unloadAsync();
+      currentTrackNumber < tracks.length && currentTrackNumber > 0
+        ? setCurrentTrackNumber(currentTrackNumber - 1)
+        : setCurrentTrackNumber(0);
+      playCurrentSong();
     }
   };
 
-  const onForward = async () => {
-    let curr_track = playlist[current_track];
-    let current_index = playlist.indexOf(curr_track) + 1;
-    if (current_index === playlist.length) {
-      setCurrentTrack(1);
-    } else {
-      setCurrentTrack((current_track) => current_track + 1);
+  const handleNextTrack = async () => {
+    if (sound) {
+      await sound.unloadAsync();
+      currentTrackNumber < tracks.length - 1
+        ? setCurrentTrackNumber(currentTrackNumber + 1)
+        : setCurrentTrackNumber(currentTrackNumber);
+      playCurrentSong();
     }
-    onStopPress().then(async () => {
-      await onStartPress();
-    });
   };
+
+  // const getProgress = () => {
+  //   if ((sound == null) | (duration == null) || position == null) {
+  //     return 0;
+  //   }
+  //   return (position / duration) * 100;
+  // };
+
+  // const seek = (time) => {
+  //   time = Math.round;
+  //   if (!sound) {
+  //     return;
+  //   } else {
+  //     sound.seek(time);
+  //     setPosition(time);
+  //     setIsPlaying(true);
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
       <Header message="Playing from charts" />
-      <AlbumArt url={song.albumArtUrl} />
-      <TrackDetails title={song.title} artist={song.artist} />
+      <AlbumArt url={tracks[currentTrackNumber].albumArtUrl} />
+      <TrackDetails
+        title={tracks[currentTrackNumber].title}
+        artist={tracks[currentTrackNumber].artist}
+      />
       <Text onPress={playCurrentSong} style={styles.startKaraoke}>
         Start Karaoke!
       </Text>
@@ -112,8 +123,7 @@ export default function Player(props) {
       /> */}
       <View style={styles.controlContainer}>
         <View style={{ width: 40 }} />
-
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePreviousTrack}>
           <Image
             source={require("../assets/ic_skip_previous_white_36pt.png")}
           />
@@ -136,7 +146,7 @@ export default function Player(props) {
           </TouchableOpacity>
         )}
         <View style={{ width: 20 }} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleNextTrack}>
           <Image
             // style={{ opacity: 0.3 }}
             source={require("../assets/ic_skip_next_white_36pt.png")}
