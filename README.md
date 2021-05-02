@@ -51,6 +51,8 @@ End points:
 
 3) To get recommendations: http://127.0.0.1:8000/recsys/get_recommendations/
 
+4) To get lyrics: http://127.0.0.1:8000/recsys/get_lyrics/
+
 
 
 
