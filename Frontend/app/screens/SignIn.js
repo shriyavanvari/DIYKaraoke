@@ -16,7 +16,6 @@ function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // This is Noopur Changes
 
   const handleSignIn = async () => {
     console.log("sign in");

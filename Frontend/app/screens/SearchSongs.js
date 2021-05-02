@@ -154,6 +154,7 @@ function SearchSongs({ navigation }) {
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.artist}>{item.artist}</Text>
           </View>
+          
         </View>
       </TouchableWithoutFeedback>
     );
