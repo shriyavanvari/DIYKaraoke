@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from recsys.models import recommendation
+
 
 class listenCountSerializer(serializers.Serializer):
     song_id = serializers.CharField(required=True)
@@ -11,5 +13,8 @@ class utilityMatrixSerializer(serializers.Serializer):
     rating = serializers.IntegerField(required=True)
 
 class recommendationsSerializer(serializers.Serializer):
-    song_id = serializers.CharField(required=False)
-    user_id = serializers.CharField(required=False)
+    class Meta:
+        model = recommendation
+        fields = ("song_id", "user_id")
+        # song_id = serializers.CharField(required=False)
+        # user_id = serializers.CharField(required=False)

@@ -1,10 +1,12 @@
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.core import serializers as serilib
 
 from . import serializers
-from .models import song_listen_count, utility_matrix
+from .models import song_listen_count, utility_matrix, recommendation
 from .serializers import listenCountSerializer, utilityMatrixSerializer, recommendationsSerializer
 
 
@@ -40,7 +42,8 @@ class RecSysViewSet(viewsets.GenericViewSet):
         if serializer.is_valid():
 
             if (
-            utility_matrix.objects.filter(song_id=request.data['song_id'], user_id=request.data['user_id'])).exists():
+                    utility_matrix.objects.filter(song_id=request.data['song_id'],
+                                                  user_id=request.data['user_id'])).exists():
                 utility_matrix.objects.filter(song_id=request.data['song_id'], user_id=request.data['user_id']). \
                     update(rating=request.data['rating'])
             else:
@@ -50,14 +53,20 @@ class RecSysViewSet(viewsets.GenericViewSet):
 
     @action(methods=['GET'], detail=False)
     def get_recommendations(self, request):
-        serializer = recommendationsSerializer(data=request.data)
-        if serializer.is_valid():
+        serializer = listenCountSerializer(data=request.data)
+        print("Manasa ====> ")
+        songs = song_listen_count.objects.all().order_by('-listen_count')
+        if songs:
+            # for song in songs:
+            #     print(song.song_id)
+            # return HttpResponse('You have some songs')
 
-            if (
-            utility_matrix.objects.filter(song_id=request.data['song_id'], user_id=request.data['user_id'])).exists():
-                utility_matrix.objects.filter(song_id=request.data['song_id'], user_id=request.data['user_id']). \
-                    update(rating=request.data['rating'])
-            else:
-                utility_matrix.objects.create(song_id=request.data['song_id'], user_id=request.data['user_id'],
-                                              rating=request.data['rating'])
-        return Response(serializer.data)
+            # json_data = serilib.serialize('json', songs)
+            # return HttpResponse(json_data, mimetype='application/json')
+
+            json_data = []
+            for song in songs:
+                json_data.append({"song_id": song.song_id, "frequency": song.listen_count})
+            return JsonResponse(json_data, safe=False)
+        else:
+            return HttpResponse('You do not have any songs.')

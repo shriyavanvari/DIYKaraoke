@@ -13,3 +13,12 @@ class utility_matrix(models.Model):
     user_id = models.CharField(max_length=200, blank=True)
     song_id = models.CharField(max_length=200, blank=True)
     rating = models.IntegerField(max_length=1, blank=True)
+
+
+class recommendation(models.Model):
+    user_id = models.CharField(max_length=200, blank=True)
+    song1_id = models.CharField(max_length=200, blank=True)
+    song2_id = models.CharField(max_length=200, blank=True)
+    song3_id = models.CharField(max_length=200, blank=True)
+    song4_id = models.CharField(max_length=200, blank=True)
+    song5_id = models.CharField(max_length=200, blank=True)

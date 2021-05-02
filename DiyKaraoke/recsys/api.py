@@ -1,6 +1,6 @@
-from .models import song_listen_count
+from .models import song_listen_count, recommendation
 from rest_framework import viewsets, permissions
-from .serializers import listenCountSerializer
+from .serializers import listenCountSerializer, recommendationsSerializer
 
 
 class RecSysViewSet(viewsets.ModelViewSet):
@@ -17,3 +17,11 @@ class UtilityViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = listenCountSerializer
+
+
+class RecommenderViewSet(viewsets.ModelViewSet):
+    queryset = recommendation.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = recommendationsSerializer
