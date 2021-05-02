@@ -49,5 +49,9 @@ End points:
 
 2) To input ratings (like=5, dislike-0): http://127.0.0.1:8000/recsys/rating/
 
+3) To get recommendations: http://127.0.0.1:8000/recsys/get_recommendations/
+
+
+
 
 	Quick link: https://github.com/shriyavanvari/DIYKaraoke/tree/Manasa/DiyKaraoke/ ---> recsys
