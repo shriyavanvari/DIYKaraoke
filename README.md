@@ -1,10 +1,10 @@
 ### How to use this api
 
 pip install -r requirements.txt
-python manage.py makemigrations
-python manage.py migrate
-python manage.py migrate --database=users_db
-python manage.py runserver
+python manage.py makemigrations </br>
+python manage.py migrate </br>
+python manage.py migrate --database=users_db </br>
+python manage.py runserver </br>
 
 ##### For creating new users:
 Send a POST request to http://localhost:8000/users/
