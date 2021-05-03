@@ -13,6 +13,7 @@ import SearchSongs from "./app/screens/SearchSongs";
 import KaraokePlayer from "./app/screens/KaraokePlayer";
 import Option from "./app/screens/Option";
 import RecognizeSong from "./app/screens/RecognizeSong";
+import Logout from "./app/components/Logout"
 
 
 const AppNavigator = createStackNavigator(); //
@@ -56,25 +57,41 @@ export default function App() {
         <AppNavigator.Screen
           name="SearchSongs"
           component={SearchSongs}
-          options={{ title: "Songs Playlist" }}
+          options={{ title: "Songs Playlist" },{
+            headerRight:() => (
+              <Logout />
+            )
+          }}
         />
 
         <AppNavigator.Screen
           name="KaraokePlayer"
           component={KaraokePlayer}
           options={
-            { title: "Karaoke Player" }
+            { title: "Karaoke Player" },{
+              headerRight:() => (
+                <Logout />
+              )
+            }
         }
         />
         <AppNavigator.Screen
           name="Option"
           component={Option}
-          options={{ title: "Pick Input" }}
+          options={{ title: "Pick Input" },{
+            headerRight:() => (
+              <Logout />
+            )
+          }}
         />
         <AppNavigator.Screen
           name="RecognizeSong"
           component={RecognizeSong}
-          options={{ title: "Pick Input" }}
+          options={{ title: "Pick Input" },{
+            headerRight:() => (
+              <Logout />
+            )
+          }}
         />
       </AppNavigator.Navigator>
     </NavigationContainer>
