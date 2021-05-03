@@ -21,6 +21,7 @@ class Songs(models.Model):
     language = models.CharField(max_length=100,blank = True)
     time = models.DateTimeField(blank = True)
     yearReleased = models.IntegerField(max_length=4,blank = True)
+    frequency = models.IntegerField(default=0)
     albumArt = models.ImageField(upload_to='images/',blank = True)
     lyrics = models.FileField(blank=True)
     file = models.FileField(upload_to='songs/', storage=gridFS, blank=True)
