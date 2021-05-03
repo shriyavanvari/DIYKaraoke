@@ -8,21 +8,23 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  CheckBox
 } from "react-native";
 import { Icon } from 'react-native-elements';
 
 function SignUp1({ navigation }) {
-  const [buttonName, setButtonName] = useState("square-o"); 
-  const changeButtonName = ()=>{
-    
-    if(buttonName=="square-o")
-    {
-    setButtonName("check-square-o")
-    }
-    else{
-      setButtonName("square-o")
-    }
-  }
+  const [isSelected1, setSelection1] = useState(false);
+  const [isSelected2, setSelection2] = useState(false);
+  const [isSelected3, setSelection3] = useState(false);
+  const [isSelected4, setSelection4] = useState(false);
+  const [isSelected5, setSelection5] = useState(false);
+  const [isSelected6, setSelection6] = useState(false);
+  const [isSelected7, setSelection7] = useState(false);
+  const [isSelected8, setSelection8] = useState(false);
+  const [isSelected9, setSelection9] = useState(false);
+  const [isSelected10, setSelection10] = useState(false);
+  const [isSelected11, setSelection11] = useState(false);
+  const [isSelected12, setSelection12] = useState(false);
   return (
     <ScrollView contentContainerStyle={styles.scrollContentContainer}>
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
@@ -36,7 +38,6 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }],
               },
             ]}
-            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -51,9 +52,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"></Icon>
+              <CheckBox
+          value={isSelected1}
+          onValueChange={setSelection1}
+         
+        />
                       Charlie Puth
             </Text>
           </TouchableOpacity>
@@ -66,7 +69,6 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -110 }],
               },
             ]}
-            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -81,10 +83,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+             <CheckBox
+          value={isSelected2}
+          onValueChange={setSelection2}
+          style={styles.checkbox}
+        />
               Ed Sheeran
             </Text>
           </TouchableOpacity>
@@ -97,7 +100,6 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -220 }, { translateX: 110 }],
               },
             ]}
-            onPress={changeButtonName}
           >
             <Image
               style={styles.image}
@@ -112,10 +114,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+              <CheckBox
+          value={isSelected3}
+          onValueChange={setSelection3}
+          style={styles.checkbox}
+        />
               Niall Horan
             </Text>
           </TouchableOpacity>
@@ -130,7 +133,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }, { translateY: -220 }],
               },
             ]}
-            onPress={changeButtonName}
+           
           >
             <Image
               style={styles.image}
@@ -145,10 +148,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+              <CheckBox
+          value={isSelected4}
+          onValueChange={setSelection4}
+          style={styles.checkbox}
+        />
               Nick Jonas
             </Text>
           </TouchableOpacity>
@@ -161,7 +165,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -330 }],
               },
             ]}
-            onPress={changeButtonName}
+          
           >
             <Image
               style={styles.image}
@@ -176,10 +180,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+             <CheckBox
+          value={isSelected5}
+          onValueChange={setSelection5}
+          style={styles.checkbox}
+        />
               James Arthur
             </Text>
           </TouchableOpacity>
@@ -192,7 +197,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -440 }, { translateX: 110 }],
               },
             ]}
-            onPress={changeButtonName}
+            
           >
             <Image
               style={styles.image}
@@ -207,10 +212,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+             <CheckBox
+          value={isSelected6}
+          onValueChange={setSelection6}
+          style={styles.checkbox}
+        />
               Calum Scott
             </Text>
           </TouchableOpacity>
@@ -225,7 +231,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }, { translateY: -440 }],
               },
             ]}
-            onPress={changeButtonName}
+            
           >
             <Image
               style={styles.image}
@@ -240,10 +246,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+            <CheckBox
+          value={isSelected7}
+          onValueChange={setSelection7}
+          style={styles.checkbox}
+        />
               Justin Bieber
             </Text>
           </TouchableOpacity>
@@ -256,7 +263,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -110 }, { translateY: -440 }],
               },
             ]}
-            onPress={changeButtonName}
+          
           >
             <Image
               style={styles.image}
@@ -271,10 +278,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+             <CheckBox
+          value={isSelected8}
+          onValueChange={setSelection8}
+          style={styles.checkbox}
+        />
               Taylor Swift
             </Text>
           </TouchableOpacity>
@@ -287,7 +295,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -660 }, { translateX: 110 }],
               },
             ]}
-            onPress={changeButtonName}
+         
           >
             <Image
               style={styles.image}
@@ -302,10 +310,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+             <CheckBox
+          value={isSelected9}
+          onValueChange={setSelection9}
+          style={styles.checkbox}
+        />
               Rihanna
             </Text>
           </TouchableOpacity>
@@ -320,7 +329,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateX: -110 }, { translateY: -660 }],
               },
             ]}
-            onPress={changeButtonName}
+           
           >
             <Image
               style={styles.image}
@@ -335,10 +344,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+             <CheckBox
+          value={isSelected10}
+          onValueChange={setSelection10}
+          style={styles.checkbox}
+        />
               Beyonce
             </Text>
           </TouchableOpacity>
@@ -351,7 +361,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -770 }],
               },
             ]}
-            onPress={changeButtonName}
+           
           >
             <Image
               style={styles.image}
@@ -366,10 +376,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+              <CheckBox
+          value={isSelected11}
+          onValueChange={setSelection11}
+          style={styles.checkbox}
+        />
               Ariana Grande
             </Text>
           </TouchableOpacity>
@@ -382,7 +393,7 @@ function SignUp1({ navigation }) {
                 transform: [{ translateY: -880 }, { translateX: 110 }],
               },
             ]}
-            onPress={changeButtonName}
+            
           >
             <Image
               style={styles.image}
@@ -397,10 +408,11 @@ function SignUp1({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              <Icon
-              name={buttonName}
-              type="font-awesome"
-              ></Icon>
+              <CheckBox
+          value={isSelected12}
+          onValueChange={setSelection12}
+          style={styles.checkbox}
+        />
               One Direction
             </Text>
           </TouchableOpacity>

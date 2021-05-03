@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -8,9 +8,22 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  CheckBox
 } from "react-native";
 
 function SignUp2({ navigation }) {
+  const [isSelected1, setSelection1] = useState(false);
+  const [isSelected2, setSelection2] = useState(false);
+  const [isSelected3, setSelection3] = useState(false);
+  const [isSelected4, setSelection4] = useState(false);
+  const [isSelected5, setSelection5] = useState(false);
+  const [isSelected6, setSelection6] = useState(false);
+  const [isSelected7, setSelection7] = useState(false);
+  const [isSelected8, setSelection8] = useState(false);
+  const [isSelected9, setSelection9] = useState(false);
+  const [isSelected10, setSelection10] = useState(false);
+  const [isSelected11, setSelection11] = useState(false);
+  const [isSelected12, setSelection12] = useState(false);
   return (
     <ScrollView contentContainerStyle={styles.scrollContentContainer}>
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
@@ -33,6 +46,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected1}
+          onValueChange={setSelection1}
+         
+        />
             Pop
           </Text>
         </TouchableOpacity>
@@ -54,6 +72,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected2}
+          onValueChange={setSelection2}
+         
+        />
             Classical
           </Text>
           </TouchableOpacity>
@@ -75,6 +98,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected3}
+          onValueChange={setSelection3}
+         
+        />
             Hiphop
           </Text>
           </TouchableOpacity>
@@ -98,6 +126,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected4}
+          onValueChange={setSelection4}
+         
+        />
             Romantic
           </Text>
           </TouchableOpacity>
@@ -119,6 +152,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected5}
+          onValueChange={setSelection5}
+         
+        />
             Bollywood
           </Text>
           </TouchableOpacity>
@@ -140,6 +178,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected6}
+          onValueChange={setSelection6}
+         
+        />
             Party
           </Text>
           </TouchableOpacity>
@@ -163,6 +206,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected7}
+          onValueChange={setSelection7}
+         
+        />
             Trip
           </Text>
           </TouchableOpacity>
@@ -185,6 +233,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected8}
+          onValueChange={setSelection8}
+         
+        />
             Workout
           </Text>
           </TouchableOpacity>
@@ -206,6 +259,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected9}
+          onValueChange={setSelection9}
+         
+        />
             Feel Good
           </Text>
           </TouchableOpacity>
@@ -228,7 +286,11 @@ function SignUp2({ navigation }) {
           />
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
-          >
+          > <CheckBox
+          value={isSelected10}
+          onValueChange={setSelection10}
+         
+        />
             Happy
           </Text>
           </TouchableOpacity>
@@ -250,6 +312,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected11}
+          onValueChange={setSelection11}
+         
+        />
             Chill
           </Text>
           </TouchableOpacity>
@@ -271,6 +338,11 @@ function SignUp2({ navigation }) {
           <Text
             style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
           >
+             <CheckBox
+          value={isSelected12}
+          onValueChange={setSelection12}
+         
+        />
             Hits
           </Text>
           </TouchableOpacity>
