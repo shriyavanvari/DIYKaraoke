@@ -11,6 +11,7 @@ import {
 import { Audio } from "expo-av";
 import Header from "./Header";
 import AlbumArt from "./AlbumArt";
+import Logout from "./Logout";
 import TrackDetails from "./TrackDetails";
 import SeekBar from "./SeekBar";
 import { Icon } from 'react-native-elements';
@@ -115,7 +116,9 @@ export default function Player(props) {
   return (
     <View style={styles.container}>
       <Header message="Playing from charts" />
+      
       <AlbumArt url={song.albumArtUrl} />
+      
       <TrackDetails title={song.title} artist={song.artist} />
       <Text onPress={playCurrentSong} style={styles.startKaraoke}>
         Start Karaoke!
