@@ -32,7 +32,7 @@ class UserRouter:
         return None
 
 class DefaultRouter:
-    route_app_labels = {'songs'}
+    route_app_labels = {'songs','recsys'}
 
     def db_for_read(self,model,**hints):
         if model._meta.app_label in self.route_app_labels:

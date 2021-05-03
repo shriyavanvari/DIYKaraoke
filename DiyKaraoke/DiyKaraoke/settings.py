@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'karaoke',
     'songs',
     'rest_framework_simplejwt.token_blacklist',
+    'recsys',
 ]
 
 MIDDLEWARE = [
@@ -93,7 +94,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'songs',
         "CLIENT": {
-           "host": "mongodb://127.0.0.1:27017/",
+           "host": "mongodb+srv://sjsuAdmin:Cmpe295Admin@diykaraoke.79gqa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
         },
     },
     'users_db': {

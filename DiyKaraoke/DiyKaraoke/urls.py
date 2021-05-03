@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('karaoke.urls')),
     url(r'^', include('songs.urls')),
+    url(r'^', include('recsys.urls')),
     url('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 ]
