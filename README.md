@@ -53,7 +53,7 @@ End points:
 	input: song_id
 	Call this API for 1) favorite the song
 
-3) To get recommendations: http://127.0.0.1:8000/recsys/get_recommendations/
+3) To get popular recommendations: http://127.0.0.1:8000/recsys/get_recommendations/
 	call this: on the homescreen, in the drop down
 	input: n/a
 	output: song_ids
@@ -61,15 +61,26 @@ End points:
 	On song screen: 
 	Drop down: recommend by popularity, latest release, similar songs
 	
-4) To get item-based: 
+4) To get latest songs recommendations: http://127.0.0.1:8000/recsys/get_latest_songs/
+	call this: on the homescreen, in the drop down
+	input: n/a
+	output: song_ids
+	
+5) To get item-based: http://127.0.0.1:8000/recsys/get_item_based/
 	input: song_id
 	output: song_ids
 
-5) To get lyrics: http://127.0.0.1:8000/recsys/get_lyrics/
+6) To get lyrics: http://127.0.0.1:8000/recsys/get_lyrics/
 	input: song_id
 	output: lyrics
+
+7) To get Karaoke: 
+	
 
 
 
 
 	Quick link: https://github.com/shriyavanvari/DIYKaraoke/tree/Manasa/DiyKaraoke/ ---> recsys
+	
+Appendix
+	http://127.0.0.1:8000/recsys/admin_import_itembased/
