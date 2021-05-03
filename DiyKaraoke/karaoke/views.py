@@ -1,54 +1,43 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
-from .models import Songs, CustomUser
-from rest_framework.views import APIView
-from .serializers import SongsSerializer, CustomUserSerializer
-from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import viewsets
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import get_user_model
-from rest_framework.authtoken.models import Token
-# Create your views here.
+from rest_framework import viewsets, status
+from django.core.exceptions import ImproperlyConfigured
+from django.contrib.auth import logout
+from rest_framework.views import APIView
+from .serializers import CustomUserSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
-class SongsViewSet(viewsets.ModelViewSet):
-    serializer_class = SongsSerializer
-    queryset = Songs.objects.all()
+from .models import CustomUser
 
-# class CreateUserAPIView(CreateAPIView):
-#     serializer_class = CreateUserSerializer
+#05/02/2021 5:40pm-working
+# class CustomUserCreate(APIView):
 #     permission_classes = [AllowAny]
 #
-#     def create(self, request, *args, **kwargs):
-#         print("create method called from API")
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         self.perform_create(serializer)
-#         headers = self.get_success_headers(serializer.data)
-#         # We create a token than will be used for future auth
-#         token = Token.objects.create(user=serializer.instance)
-#         token_data = {"token": token.key}
-#         return Response(
-#             {**serializer.data, **token_data},
-#             status=status.HTTP_201_CREATED,
-#             headers=headers
-#         )
+#     def post(self, request, format='json'):
+#         serializer = CustomUserSerializer(data=request.data)
+#         if serializer.is_valid():
+#             user = serializer.save()
+#             if user:
+#                 json = serializer.data
+#                 return Response(json, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserViewSet(viewsets.ModelViewSet):
+class CustomUserCreate(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
 
-# class LogoutUserAPIView(APIView):
-#     queryset = get_user_model().objects.all()
-#
-#     def get(self, request, format=None):
-#         # simply delete the token to force a login
-#         request.user.auth_token.delete()
-#         return Response(status=status.HTTP_200_OK)
+class BlacklistTokenUpdateView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = ()
 
-
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

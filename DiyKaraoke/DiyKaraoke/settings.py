@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,15 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '3$)=0v3-puzy^6r3ito=adjnboocd43*(lcufkxe1mj2at5lpy'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'karaoke.CustomUser'
 
-HOST_URL = os.getenv('MONGODB_URL')
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,17 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth',
     'karaoke',
+    'songs',
+    'rest_framework_simplejwt.token_blacklist',
 ]
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,14 +78,27 @@ WSGI_APPLICATION = 'DiyKaraoke.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME':'djongo_test',
+#         # "CLIENT": {
+#         #    "host": "mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb",
+#         # },
+#     }
+# }
+
 DATABASES = {
-    'default': {
+    'default':{
         'ENGINE': 'djongo',
+        'NAME': 'songs',
         "CLIENT": {
-           "host": "mongodb+srv://diykaraoke.79gqa.mongodb.net/songsDB?retryWrites=true&w=majority",
-           "username": "sjsuAdmin",
-           "password": 'Cmpe295Admin',
+           "host": "mongodb://127.0.0.1:27017/",
         },
+    },
+    'users_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR + '/songs.db.sqlite3',
     }
 }
 
@@ -117,18 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-REST_FRAMEWORK={
-    'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES':(
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
-
-REST_USE_JWT=True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -152,3 +144,31 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT =  os.path.join(BASE_DIR,'media/')
 STATIC_ROOT = os.path.join(BASE_DIR,'static/')
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        # ====================================================
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+
+AUTH_USER_MODEL = "karaoke.CustomUser"
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
+DATABASE_ROUTERS =['routers.db_routers.UserRouter','routers.db_routers.DefaultRouter']
