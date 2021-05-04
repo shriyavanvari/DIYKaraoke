@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from karaoke.models import Songs
+# from karaoke.models import Songs
 from . import serializers
 # from .lyrics_narrate import returnLyrics
 from .models import song_listen_count, utility_matrix, song_lyrics, recommendation, karaokeGenerate
@@ -67,17 +67,17 @@ class RecSysViewSet(viewsets.GenericViewSet):
         else:
             return HttpResponse('You do not have any songs.')
 
-    @action(methods=['GET'], detail=False)
-    def get_latest_songs(self, request):
-        # serializer = listenCountSerializer(data=request.data)
-        songs = Songs.objects.all().order_by('-time')
-        if songs:
-            json_data = []
-            for song in songs:
-                json_data.append({"title": song.title, "time added": song.time})
-            return JsonResponse(json_data, safe=False)
-        else:
-            return HttpResponse('You do not have any songs.')
+    # @action(methods=['GET'], detail=False)
+    # def get_latest_songs(self, request):
+    #     # serializer = listenCountSerializer(data=request.data)
+    #     songs = Songs.objects.all().order_by('-time')
+    #     if songs:
+    #         json_data = []
+    #         for song in songs:
+    #             json_data.append({"title": song.title, "time added": song.time})
+    #         return JsonResponse(json_data, safe=False)
+    #     else:
+    #         return HttpResponse('You do not have any songs.')
 
     @action(methods=['POST'], detail=False)
     def get_lyrics(self, request):
