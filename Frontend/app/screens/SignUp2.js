@@ -8,8 +8,8 @@ import {
   Image,
   Button,
   TouchableOpacity,
-  CheckBox,
 } from "react-native";
+import { Checkbox } from "react-native-paper";
 
 function SignUp2({ navigation }) {
   const [isSelected1, setSelection1] = useState(false);
@@ -43,10 +43,23 @@ function SignUp2({ navigation }) {
               source={require("../assets/karaoke.png")}
               resizeMode="contain"
             />
+
             <Text
-              style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
+              style={{
+                position: "absolute",
+                fontSize: 20,
+                fontWeight: "bold",
+              }}
             >
-              <CheckBox value={isSelected1} onValueChange={setSelection1} />
+              <Checkbox.Item
+                status={isSelected1 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection1(!isSelected1);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Pop
             </Text>
           </TouchableOpacity>
@@ -68,7 +81,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected2} onValueChange={setSelection2} />
+              <Checkbox.Item
+                status={isSelected2 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection2(!isSelected2);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Classical
             </Text>
           </TouchableOpacity>
@@ -90,7 +111,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected3} onValueChange={setSelection3} />
+              <Checkbox.Item
+                status={isSelected3 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection3(!isSelected3);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Hiphop
             </Text>
           </TouchableOpacity>
@@ -114,7 +143,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected4} onValueChange={setSelection4} />
+              <Checkbox.Item
+                status={isSelected4 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection4(!isSelected4);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Romantic
             </Text>
           </TouchableOpacity>
@@ -136,7 +173,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected5} onValueChange={setSelection5} />
+              <Checkbox.Item
+                status={isSelected5 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection5(!isSelected5);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Bollywood
             </Text>
           </TouchableOpacity>
@@ -158,7 +203,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected6} onValueChange={setSelection6} />
+              <Checkbox.Item
+                status={isSelected6 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection6(!isSelected6);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Party
             </Text>
           </TouchableOpacity>
@@ -182,7 +235,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected7} onValueChange={setSelection7} />
+              <Checkbox.Item
+                status={isSelected7 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection7(!isSelected7);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Trip
             </Text>
           </TouchableOpacity>
@@ -205,7 +266,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected8} onValueChange={setSelection8} />
+              <Checkbox.Item
+                status={isSelected8 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection8(!isSelected8);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Workout
             </Text>
           </TouchableOpacity>
@@ -227,7 +296,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected9} onValueChange={setSelection9} />
+              <Checkbox.Item
+                status={isSelected9 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection9(!isSelected9);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Feel Good
             </Text>
           </TouchableOpacity>
@@ -252,7 +329,15 @@ function SignUp2({ navigation }) {
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
               {" "}
-              <CheckBox value={isSelected10} onValueChange={setSelection10} />
+              <Checkbox.Item
+                status={isSelected10 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection10(!isSelected10);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Happy
             </Text>
           </TouchableOpacity>
@@ -274,7 +359,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected11} onValueChange={setSelection11} />
+              <Checkbox.Item
+                status={isSelected11 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection11(!isSelected11);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Chill
             </Text>
           </TouchableOpacity>
@@ -296,7 +389,15 @@ function SignUp2({ navigation }) {
             <Text
               style={{ position: "absolute", fontSize: 20, fontWeight: "bold" }}
             >
-              <CheckBox value={isSelected12} onValueChange={setSelection12} />
+              <Checkbox.Item
+                status={isSelected12 ? "checked" : "unchecked"}
+                onPress={() => {
+                  setSelection12(!isSelected12);
+                }}
+                color="black"
+                uncheckedColor="red"
+                style={styles.checkbox}
+              />
               Hits
             </Text>
           </TouchableOpacity>
@@ -325,7 +426,7 @@ function SignUp2({ navigation }) {
 }
 const styles = StyleSheet.create({
   container: {
-    // flex:1,
+    flex: 1,
   },
   image: {
     width: 100,
@@ -333,7 +434,7 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
   scrollContentContainer: {
-    flex: 1,
+    //flex: 1,
     alignItems: "center",
     //   paddingTop:35,
     //   paddingBottom: 60
@@ -343,9 +444,10 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 5,
     marginVertical: 5,
-    backgroundColor: "#61dafb",
+    //backgroundColor: "#61dafb",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "column",
   },
   text: {
     fontSize: 14,
@@ -368,6 +470,10 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     paddingTop: 5,
+  },
+  checkbox: {
+    borderColor: "deeppink",
+    borderWidth: 1,
   },
 });
 

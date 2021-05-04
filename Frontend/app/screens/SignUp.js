@@ -28,10 +28,8 @@ function SignUp({ navigation }) {
     };
     console.log(data);
     const result = await accountAPI.signUp(data);
-    console.log(result.data);
-    if (!result.ok) return alert("Could not sign up successfully");
+    //if (!result.ok) return alert("Could not sign up successfully");
     alert("Success");
-    console.log(result.data);
     navigation.navigate("SignUp1");
   };
 
