@@ -1,5 +1,5 @@
 import { connect } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,25 +10,52 @@ import {
   Button,
 } from "react-native";
 
+import AsyncStorage from "@react-native-community/async-storage";
+
 import accountAPI from "../api/account";
 
 function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [accessToken, setAccessToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
+
+  const storeToken = async (token) => {
+    try {
+      await AsyncStorage.setItem("refresh", token);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  };
+  const getToken = async (user) => {
+    try {
+      let token = await AsyncStorage.getItem("refresh");
+      console.log(token);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  };
 
   const handleSignIn = async () => {
     console.log("sign in");
-
-    data = {
+    const data = {
       username: email,
       password: password,
     };
-    console.log(data);
     const result = await accountAPI.signIn(data);
+    storeToken(result.data.refresh);
+    setAccessToken(result.data.access);
+    setRefreshToken(result.data.refresh);
     if (!result.ok) return alert("Could not sign in successfully");
     alert("Success");
+
     navigation.navigate("Option");
   };
+
+  useEffect(() => {
+    getToken();
+  }, [refreshToken]);
+
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
@@ -66,11 +93,7 @@ function SignIn({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButton}>
-        <Button
-          title="LOGIN"
-          color="black"
-          onPress={() => navigation.navigate("Option")}
-        />
+        <Button title="LOGIN" color="black" onPress={handleSignIn} />
       </TouchableOpacity>
 
       <TouchableOpacity>

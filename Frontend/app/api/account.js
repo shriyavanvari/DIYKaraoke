@@ -1,15 +1,25 @@
 import apiClient from "./client";
 
-const endpoint = "/auth/login/";
 const signIn = (credentials) => {
+  const endpoint = "/api/token/";
   const data = {
-    username: credentials.username,
+    email: credentials.username,
     password: credentials.password,
   };
-  console.log("api");
-  console.log(data);
+
+  return apiClient.post(endpoint, data);
+};
+const signUp = (userDetails) => {
+  const endpoint = "/users/";
+  const data = {
+    email: userDetails.email,
+    first_name: userDetails.fname,
+    last_name: userDetails.lname,
+    password: userDetails.password,
+  };
   return apiClient.post(endpoint, data);
 };
 export default {
   signIn,
+  signUp,
 };

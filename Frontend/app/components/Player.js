@@ -13,18 +13,19 @@ import Header from "./Header";
 import AlbumArt from "./AlbumArt";
 import TrackDetails from "./TrackDetails";
 import SeekBar from "./SeekBar";
+import Lyrics from "./Lyrics";
+import { useLinkProps } from "@react-navigation/native";
 
 export default function Player(props) {
   const tracks = props.tracks;
   const [sound, setSound] = useState();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [playback, setPlayback] = useState();
+  const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(null);
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState(0);
   const [currentTrackNumber, setCurrentTrackNumber] = useState(
     props.selectedTrackNumber - 1
   );
-  //console.log(props);
-  // const song = props.tracks[selectedTrackNumber];
 
   React.useEffect(() => {
     return sound
@@ -39,7 +40,6 @@ export default function Player(props) {
     setIsPlaying(status.isPlaying);
     setDuration(status.durationMillis);
     setPosition(status.positionMillis);
-    // console.log(status);
   };
 
   const playCurrentSong = async () => {
@@ -54,12 +54,30 @@ export default function Player(props) {
     await sound.playAsync();
   };
 
+  // const playCurrentSong = async () => {
+  //   //playing audio for first time
+  //   if (!sound) {
+  //     const playback = new Audio.Sound();
+  //     const status = await playback.loadAsync(
+  //       { uri: tracks[currentTrackNumber].audioUrl },
+  //       { shouldPlay: true }
+  //     );
+
+  //     setPlayback(playback);
+  //     setSound(status);
+  //   } else {
+  //     if (sound.isLoaded && sound.isPlaying) {
+  //       console.log("Audio is already playing");
+  //     }
+  //   }
+  // };
+
   const onPlayPausePress = async () => {
     if (!sound) {
       return;
     }
     if (isPlaying) {
-      await sound.stopAsync();
+      await sound.pauseAsync();
     } else {
       await sound.playAsync();
     }
@@ -154,6 +172,10 @@ export default function Player(props) {
         </TouchableOpacity>
         <View style={{ width: 40 }} />
       </View>
+      <Lyrics
+        track={props.tracks[currentTrackNumber]}
+        position={position / 1000}
+      />
     </View>
   );
 }

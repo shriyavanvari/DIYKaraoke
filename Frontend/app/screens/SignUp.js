@@ -10,11 +10,29 @@ import {
   SafeAreaView,
 } from "react-native";
 
+import accountAPI from "../api/account";
+
 function SignUp({ navigation }) {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSignUp = async () => {
+    console.log("sign up");
+    const data = {
+      email: email,
+      password: password,
+      fname: fname,
+      lname: lname,
+    };
+    console.log(data);
+    const result = await accountAPI.signUp(data);
+    if (!result.ok) return alert("Could not sign up successfully");
+    alert("Success");
+    navigation.navigate("SignUp1");
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
@@ -68,11 +86,7 @@ function SignUp({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.registerButton}>
-        <Button
-          title="Register"
-          color="black"
-          onPress={() => navigation.navigate("SignUp1")}
-        ></Button>
+        <Button title="Register" color="black" onPress={handleSignUp}></Button>
       </TouchableOpacity>
     </View>
   );

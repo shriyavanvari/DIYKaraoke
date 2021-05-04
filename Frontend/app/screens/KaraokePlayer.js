@@ -1,6 +1,9 @@
 import React from "react";
 import Player from "../components/Player";
 import { Text } from "react-native";
+
+import songlyrics from "../components/SongLyrics";
+
 export default function KaraokePlayer({ props, route }) {
   const tracks = [
     {
@@ -8,9 +11,10 @@ export default function KaraokePlayer({ props, route }) {
       title: "Stressed Out",
       artist: "Twenty One Pilots",
       albumArtUrl:
-        "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
+        "https://diykaraoke.s3-us-west-1.amazonaws.com/-127wiki.jpeg",
       audioUrl:
-        "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+        "https://diykaraoke.s3-us-west-1.amazonaws.com/Ariana+Grande+-+7+rings.mp3",
+      lyrics: songlyrics.fragments,
     },
     {
       id: 2,
@@ -26,9 +30,9 @@ export default function KaraokePlayer({ props, route }) {
       title: "Hotline Bling",
       artist: "Drake",
       albumArtUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png",
+        "https://diykaraoke.s3-us-west-1.amazonaws.com/-127wiki.jpeg",
       audioUrl:
-        "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3",
+        "https://diykaraoke.s3-us-west-1.amazonaws.com/Ariana+Grande+-+7+rings.mp3",
     },
   ];
 
