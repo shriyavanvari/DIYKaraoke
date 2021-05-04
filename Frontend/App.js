@@ -3,6 +3,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Button } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SignIn from "./app/screens/SignIn";
@@ -14,7 +15,8 @@ import SearchSongs from "./app/screens/SearchSongs";
 import KaraokePlayer from "./app/screens/KaraokePlayer";
 import Option from "./app/screens/Option";
 import RecognizeSong from "./app/screens/RecognizeSong";
-import AsyncStorage from "@react-native-community/async-storage";
+import ItemBasedRecommendations from "./app/screens/ItemBasedRecommendations";
+
 const AppNavigator = createStackNavigator(); //
 
 export default function App() {
@@ -67,20 +69,7 @@ export default function App() {
           component={SignUp3}
           options={{ title: "Register" }}
         />
-        <AppNavigator.Screen
-          name="SearchSongs"
-          component={SearchSongs}
-          // options={{
-          //   headerRight: (navigation) => (
-          //     <Button
-          //       title="Logout"
-          //       onPress={() => {
-          //         navigation.navigate("SignIn");
-          //       }}
-          //     />
-          //   ),
-          // }}
-        />
+        <AppNavigator.Screen name="SearchSongs" component={SearchSongs} />
 
         <AppNavigator.Screen
           name="KaraokePlayer"
@@ -96,6 +85,10 @@ export default function App() {
           name="RecognizeSong"
           component={RecognizeSong}
           options={{ title: "Recognize Song" }}
+        />
+        <AppNavigator.Screen
+          name="ItemRecommendations"
+          component={ItemBasedRecommendations}
         />
       </AppNavigator.Navigator>
     </NavigationContainer>

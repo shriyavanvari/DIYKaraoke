@@ -9,6 +9,7 @@ import {
   Button,
 } from "react-native";
 import { Audio } from "expo-av";
+import AsyncStorage from "@react-native-community/async-storage";
 
 function RecognizeSong(props) {
   const [recording, setRecording] = React.useState();
@@ -39,6 +40,14 @@ function RecognizeSong(props) {
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
     const uri = recording.getURI();
+    // AsyncStorage.getAllKeys((err, keys) => {
+    //   AsyncStorage.multiGet(keys, (error, stores) => {
+    //     stores.map((result, i, store) => {
+    //       console.log({ [store[i][0]]: store[i][1] });
+    //       return true;
+    //     });
+    //   });
+    // });
     console.log("Recording stopped and stored at", uri);
   }
 

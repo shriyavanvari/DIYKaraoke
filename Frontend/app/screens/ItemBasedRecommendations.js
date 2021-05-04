@@ -16,7 +16,8 @@ import Logout from "../components/Logout";
 
 import songAPI from "../api/songs";
 
-function SearchSongs({ navigation }) {
+function ItemBasedRecommendations(props) {
+  //console.log(navigation, route);
   const [search, setSearch] = useState("");
   const [tracks, setTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
@@ -25,7 +26,7 @@ function SearchSongs({ navigation }) {
     //response
     //set tracks to the response.data
     //setfiltered tracks to response
-    const result = await songAPI.getPopularSongs();
+    const result = await songAPI.getItemBasedSongs(props.route.params.songId);
     setTracks(result.data);
     setFilteredTracks(result.data);
   }, []);
@@ -59,7 +60,7 @@ function SearchSongs({ navigation }) {
 
   const onSongPress = async (key) => {
     const result = await songAPI.incrementFrequency(key);
-    navigation.navigate("KaraokePlayer", {
+    props.navigation.navigate("KaraokePlayer", {
       paramKey: { key },
       tracks: { tracks },
     });
@@ -98,7 +99,7 @@ function SearchSongs({ navigation }) {
         <FlatList
           data={filteredTracks}
           keyExtractor={(item, index) => {
-            item.id.toString();
+            item.id;
           }}
           renderItem={renderItem}
         />
@@ -162,4 +163,4 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
 });
-export default SearchSongs;
+export default ItemBasedRecommendations;

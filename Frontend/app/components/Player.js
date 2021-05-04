@@ -24,7 +24,7 @@ export default function Player(props) {
   const [duration, setDuration] = useState(null);
   const [position, setPosition] = useState(0);
   const [currentTrackNumber, setCurrentTrackNumber] = useState(
-    props.selectedTrackNumber - 1
+    props.tracks.findIndex((track) => props.selectedTrackNumber == track.id)
   );
 
   React.useEffect(() => {
@@ -44,9 +44,10 @@ export default function Player(props) {
 
   const playCurrentSong = async () => {
     console.log("Loading Sound");
-    console.log(tracks[currentTrackNumber].audioUrl);
+    console.log(props);
+    //console.log(tracks[currentTrackNumber].audioUrl);
     const { sound } = await Audio.Sound.createAsync(
-      { uri: tracks[currentTrackNumber].audioUrl },
+      { uri: tracks[currentTrackNumber].file },
       { shouldPlay: isPlaying },
       onPlaybackStatusUpdate
     );
@@ -123,8 +124,12 @@ export default function Player(props) {
 
   return (
     <View style={styles.container}>
-      <Header message="Playing from charts" />
-      <AlbumArt url={tracks[currentTrackNumber].albumArtUrl} />
+      <Header
+        message="Playing from charts"
+        songId={tracks[currentTrackNumber].id}
+        navigation={props.navigation}
+      />
+      <AlbumArt url={tracks[currentTrackNumber].albumArt} />
       <TrackDetails
         title={tracks[currentTrackNumber].title}
         artist={tracks[currentTrackNumber].artist}
@@ -172,10 +177,10 @@ export default function Player(props) {
         </TouchableOpacity>
         <View style={{ width: 40 }} />
       </View>
-      <Lyrics
+      {/* <Lyrics
         track={props.tracks[currentTrackNumber]}
         position={position / 1000}
-      />
+      /> */}
     </View>
   );
 }
