@@ -4,7 +4,7 @@ from recsys.models import recommendation
 
 
 class listenCountSerializer(serializers.Serializer):
-    song_id = serializers.CharField(required=True)
+    id = serializers.CharField(required=True)
 
 
 class itembasedInputSerializer(serializers.Serializer):
@@ -26,10 +26,8 @@ class recommendationsSerializer(serializers.Serializer):
     class Meta:
         model = recommendation
         fields = ("song_id", "user_id")
-        # song_id = serializers.CharField(required=False)
-        # user_id = serializers.CharField(required=False)
 
 class admin_import_karaokeSerializer(serializers.Serializer):
-    song_id = serializers.CharField(required=True)
-    albumArtUrl = serializers.CharField(required=True)
-    audioUrl = serializers.CharField(required=True)
+    id = serializers.CharField(required=True)
+    albumArt = serializers.CharField(required=True)
+    file = serializers.CharField(required=True)
