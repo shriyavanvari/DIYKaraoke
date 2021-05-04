@@ -20,9 +20,15 @@ class utility_matrix(models.Model):
 
 
 class recommendation(models.Model):
-    user_id = models.CharField(max_length=200, blank=True)
-    song1_id = models.CharField(max_length=200, blank=True)
-    song2_id = models.CharField(max_length=200, blank=True)
-    song3_id = models.CharField(max_length=200, blank=True)
-    song4_id = models.CharField(max_length=200, blank=True)
-    song5_id = models.CharField(max_length=200, blank=True)
+    # user_id = models.CharField(max_length=200, blank=True)
+    song_id = models.CharField(max_length=200, blank=True)
+    song_id1 = models.CharField(max_length=200, blank=True)
+    song_id2 = models.CharField(max_length=200, blank=True)
+    song_id3 = models.CharField(max_length=200, blank=True)
+    song_id4 = models.CharField(max_length=200, blank=True)
+    song_id5 = models.CharField(max_length=200, blank=True)
+
+class karaokeGenerate(models.Model):
+    song_id = models.CharField(max_length=200, blank=True)
+    albumArtUrl = models.CharField(max_length=500, blank=True)
+    audioUrl = models.CharField(max_length=500, blank=True)

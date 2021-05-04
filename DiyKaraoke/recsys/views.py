@@ -6,12 +6,13 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from django.core import serializers as serilib
 
+from karaoke.models import Songs
 from . import serializers
-from .models import song_listen_count, utility_matrix, recommendation, song_lyrics
-from .serializers import listenCountSerializer, utilityMatrixSerializer, recommendationsSerializer
-
+# from .lyrics_narrate import returnLyrics
+from .models import song_listen_count, utility_matrix, song_lyrics, recommendation, karaokeGenerate
+from .serializers import listenCountSerializer, utilityMatrixSerializer, itembasedInputSerializer, \
+    admin_import_karaokeSerializer
 
 # Create your views here.
 
@@ -66,6 +67,18 @@ class RecSysViewSet(viewsets.GenericViewSet):
         else:
             return HttpResponse('You do not have any songs.')
 
+    @action(methods=['GET'], detail=False)
+    def get_latest_songs(self, request):
+        # serializer = listenCountSerializer(data=request.data)
+        songs = Songs.objects.all().order_by('-time')
+        if songs:
+            json_data = []
+            for song in songs:
+                json_data.append({"title": song.title, "time added": song.time})
+            return JsonResponse(json_data, safe=False)
+        else:
+            return HttpResponse('You do not have any songs.')
+
     @action(methods=['POST'], detail=False)
     def get_lyrics(self, request):
         serializer = listenCountSerializer(data=request.data)
@@ -88,55 +101,65 @@ class RecSysViewSet(viewsets.GenericViewSet):
         else:
             return HttpResponse('No lyrics.')
 
-    # @action(methods=['GET'], detail=False)
-    # def get_item_recommendations(self, request):
-    #     songs = utility_matrix.objects.all().order_by('-listen_count')
-    #     # song_listen_count.objects.all().values('actor').annotate(total=Count('actor')).order_by('total')
-    #     print(utility_matrix.objects.all())
-    #     # song_df = pd.pivot_table(utility_matrix.objects.all(), values='rating', index='user_id', columns='song_id')
-    #     song_df = pd.pivot_table(utility_matrix.objects.all())
-    #     song_grouped = utility_matrix.objects.all().annotate(total=Count('song_id')).order_by('rating')
-    #     print("Manasa")
-    #     print(pd.DataFrame(song_df))
-    #     songs_crosstab: DataFrame = pd.DataFrame(song_df)
-    #     songs_crosstab.head()
-    #     # predictor_song_ratings = songs_crosstab[request.GET.get('song_id')]
-    #     predictor_song_ratings = songs_crosstab['1']
-    #     similar_songs = songs_crosstab.corrwith(predictor_song_ratings)
-    #     corr_listened_song = pd.DataFrame(similar_songs, columns=['pearsonR'])
-    #     corr_listened_song.dropna(inplace=True)
-    #     predictor_corr_summary = corr_listened_song.join(song_grouped['rating'])
-    #     predictor_corr_summary = predictor_corr_summary.sort_values('pearsonR', ascending=False)
-    #     final_recommended_songs = predictor_corr_summary[predictor_corr_summary.pearsonR < 0.9999]
-    #     final_recommended_songs.sort_values('pearsonR', ascending=False)
-    #     final_recommended_songs = final_recommended_songs.reset_index()
-    #     song_df_one = song_df.drop(['rating'], axis=1)
-    #     similar_songs = pd.merge(final_recommended_songs, song_df_one.drop_duplicates(["song_id"]), on="song_id",
-    #                              how="left")
-    #     similar_songs = similar_songs.sort_values('pearsonR', ascending=False)
-    #     return similar_songs.head(50)
+    @action(methods=['POST'], detail=False)
+    def admin_import_itembased(self, request):
+        serializer = itembasedInputSerializer(data=request.data)
+        if serializer.is_valid():
 
-    @action(methods=['GET'], detail=False)
-    def recommender_item_based_similar_songs(self, request):
-        songmetadata = pd.read_csv(
-            r'/Users/devarakondasantosh/Desktop/Fresh/DIYKaraoke/DiyKaraoke/recsys/song_data.csv')
-        othersongdata = pd.read_fwf(r'/Users/devarakondasantosh/Desktop/Fresh/DIYKaraoke/DiyKaraoke/recsys/10000.txt')
-        othersongdata.columns = ['user_id', 'song_id', 'listen_count']
-        song_df = pd.merge(othersongdata, songmetadata.drop_duplicates(['song_id']), on="song_id", how="left")
-        song_grouped = pd.DataFrame(song_df.groupby('song_id')['listen_count'].count())
-        songs_crosstab = pd.pivot_table(song_df, values='listen_count', index='user_id', columns='song_id')
-        songs_crosstab.head()
-        predictor_song_ratings = songs_crosstab['1']
-        similar_songs = songs_crosstab.corrwith(predictor_song_ratings)
-        corr_listened_song = pd.DataFrame(similar_songs, columns=['pearsonR'])
-        corr_listened_song.dropna(inplace=True)
-        predictor_corr_summary = corr_listened_song.join(song_grouped['listen_count'])
-        predictor_corr_summary = predictor_corr_summary.sort_values('pearsonR', ascending=False)
-        final_recommended_songs = predictor_corr_summary[predictor_corr_summary.pearsonR < 0.9999]
-        final_recommended_songs.sort_values('pearsonR', ascending=False)
-        final_recommended_songs = final_recommended_songs.reset_index()
-        song_df_one = song_df.drop(['listen_count'], axis=1)
-        similar_songs = pd.merge(final_recommended_songs, song_df_one.drop_duplicates(["song_id"]), on="song_id",
-                                 how="left")
-        similar_songs = similar_songs.sort_values('pearsonR', ascending=False)
-        return similar_songs.head(50)
+            if (recommendation.objects.filter(song_id=request.data['song_id'])).exists():
+                the_song = recommendation.objects.filter(song_id=request.data['song_id'])
+                the_song.update(song_id1=request.data['song_id1'],
+                                song_id2=request.data['song_id2'],
+                                song_id3=request.data['song_id3'],
+                                song_id4=request.data['song_id4'],
+                                song_id5=request.data['song_id5'])
+            else:
+                recommendation.objects.create(song_id=request.data['song_id'],
+                                              song_id1=request.data['song_id1'],
+                                              song_id2=request.data['song_id2'],
+                                              song_id3=request.data['song_id3'],
+                                              song_id4=request.data['song_id4'],
+                                              song_id5=request.data['song_id5'])
+        return Response(serializer.data)
+
+    @action(methods=['POST'], detail=False)
+    def get_item_based(self, request):
+        songs = recommendation.objects.filter(song_id=request.data['song_id'])
+        if songs:
+            json_data = []
+            for song in songs:
+                json_data.append({"song_id1": song.song_id1,
+                                  "song_id2": song.song_id2,
+                                  "song_id3": song.song_id3,
+                                  "song_id4": song.song_id4,
+                                  "song_id5": song.song_id5})
+            return JsonResponse(json_data, safe=False)
+        else:
+            return HttpResponse('No recommendations.')
+
+    @action(methods=['POST'], detail=False)
+    def admin_import_karaoke_generate(self, request):
+        serializer = admin_import_karaokeSerializer(data=request.data)
+        if serializer.is_valid():
+
+            if (karaokeGenerate.objects.filter(song_id=request.data['song_id'])).exists():
+                the_song = karaokeGenerate.objects.filter(song_id=request.data['song_id'])
+                the_song.update(albumArtUrl=request.data['albumArtUrl'],
+                                audioUrl=request.data['audioUrl'], )
+            else:
+                karaokeGenerate.objects.create(song_id=request.data['song_id'],
+                                              albumArtUrl=request.data['albumArtUrl'],
+                                              audioUrl=request.data['audioUrl'], )
+        return Response(serializer.data)
+
+    @action(methods=['POST'], detail=False)
+    def generate_karaoke(self, request):
+        songs = karaokeGenerate.objects.filter(song_id=request.data['song_id'])
+        if songs:
+            json_data = []
+            for song in songs:
+                json_data.append({"albumArtUrl": song.albumArtUrl,
+                                  "audioUrl": song.audioUrl, })
+            return JsonResponse(json_data, safe=False)
+        else:
+            return HttpResponse('No karaoke details found.')
