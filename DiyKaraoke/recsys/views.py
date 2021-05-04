@@ -36,10 +36,10 @@ class RecSysViewSet(viewsets.GenericViewSet):
             if (Songs.objects.filter(id=request.data['id'])).exists():
                 the_song = Songs.objects.filter(id=request.data['id'])
                 new_listen_count = the_song.values('frequency')[0]['frequency'] + 1
-                the_song.update(listen_count=new_listen_count)
+                the_song.update(frequency=new_listen_count)
 
             else:
-                Songs.objects.create(id=request.data['id'], listen_count=1)
+                Songs.objects.create(id=request.data['id'], frequency=1)
         return Response(serializer.data)
 
     @action(methods=['POST'], detail=False)
@@ -48,8 +48,8 @@ class RecSysViewSet(viewsets.GenericViewSet):
         if serializer.is_valid():
 
             if (
-                    utility_matrix.objects.filter(id=request.data['id'],)).exists():
-                utility_matrix.objects.filter(id=request.data['id'],). \
+                    utility_matrix.objects.filter(id=request.data['id'], )).exists():
+                utility_matrix.objects.filter(id=request.data['id'], ). \
                     update(rating=request.data['rating'])
             else:
                 utility_matrix.objects.create(id=request.data['id'],
@@ -62,7 +62,14 @@ class RecSysViewSet(viewsets.GenericViewSet):
         if songs:
             json_data = []
             for song in songs:
-                json_data.append({"id": song.id, "frequency": song.frequency})
+                # json_data.append({"id": song.id, "frequency": song.frequency})
+                json_data.append({"id": song.id,
+                                  "title": song.title,
+                                  "artist": song.artist,
+                                  "albumArt": json.dumps(str(song.albumArt)),
+                                  "file": json.dumps(str(song.file)),
+                                  "lyrics": json.dumps(str(song.lyrics))
+                                  })
             return JsonResponse(json_data, safe=False)
         else:
             return HttpResponse('You do not have any songs.')
@@ -73,7 +80,13 @@ class RecSysViewSet(viewsets.GenericViewSet):
         if songs:
             json_data = []
             for song in songs:
-                json_data.append({"title": song.title, "time added": song.time})
+                json_data.append({"id": song.id,
+                                  "title": song.title,
+                                  "artist": song.artist,
+                                  "albumArt": json.dumps(str(song.albumArt)),
+                                  "file": json.dumps(str(song.file)),
+                                  "lyrics": json.dumps(str(song.lyrics))
+                                  })
             return JsonResponse(json_data, safe=False)
         else:
             return HttpResponse('You do not have any songs.')
@@ -124,14 +137,20 @@ class RecSysViewSet(viewsets.GenericViewSet):
     @action(methods=['POST'], detail=False)
     def get_item_based(self, request):
         songs = recommendation.objects.filter(id=request.data['id'])
+        json_data = []
         if songs:
-            json_data = []
             for song in songs:
-                json_data.append({"song_id1": song.song_id1,
-                                  "song_id2": song.song_id2,
-                                  "song_id3": song.song_id3,
-                                  "song_id4": song.song_id4,
-                                  "song_id5": song.song_id5})
+                recommended = {song.song_id1, song.song_id2, song.song_id3, song.song_id4, song.song_id5}
+                for item in recommended:
+                    res = Songs.objects.filter(id=item)
+                    for ele in res:
+                        json_data.append({"id": ele.id,
+                                          "title": ele.title,
+                                          "artist": ele.artist,
+                                          "albumArt": json.dumps(str(ele.albumArt)),
+                                          "file": json.dumps(str(ele.file)),
+                                          "lyrics": json.dumps(str(ele.lyrics))
+                                          })
             return JsonResponse(json_data, safe=False)
         else:
             return HttpResponse('No recommendations.')

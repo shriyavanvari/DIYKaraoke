@@ -8,7 +8,7 @@ class listenCountSerializer(serializers.Serializer):
 
 
 class itembasedInputSerializer(serializers.Serializer):
-    song_id = serializers.CharField(required=True)
+    id = serializers.CharField(required=True)
     song_id1 = serializers.CharField(required=True)
     song_id2 = serializers.CharField(required=True)
     song_id3 = serializers.CharField(required=True)
