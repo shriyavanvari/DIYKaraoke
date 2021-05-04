@@ -19,3 +19,12 @@ System Screenshots
 9. ![alt text](https://github.com/shriyavanvari/DIYKaraoke/blob/Noopur/Frontend/Screenshots/RecordSong.PNG?raw=true)
 
 10. ![alt text](https://github.com/shriyavanvari/DIYKaraoke/blob/Noopur/Frontend/Screenshots/SearchSong.PNG?raw=true)
+
+
+
+Song Recognition:
+
+python recognize-from-microphone.py -s 5
+
+Fingerprint has:
+Song id, Song name, related hashes(fingerprints)
