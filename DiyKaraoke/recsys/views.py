@@ -31,6 +31,7 @@ class RecSysViewSet(viewsets.GenericViewSet):
     @action(methods=['POST'], detail=False)
     def increase_listen_count(self, request):
         serializer = listenCountSerializer(data=request.data)
+        new_listen_count = 1
         if serializer.is_valid():
 
             if (Songs.objects.filter(id=request.data['id'])).exists():
@@ -40,7 +41,7 @@ class RecSysViewSet(viewsets.GenericViewSet):
 
             else:
                 Songs.objects.create(id=request.data['id'], frequency=1)
-        return Response(serializer.data)
+        return Response(new_listen_count)
 
     @action(methods=['POST'], detail=False)
     def rating(self, request):
