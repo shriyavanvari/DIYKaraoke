@@ -10,10 +10,11 @@ import {
 } from "react-native";
 import { Audio } from "expo-av";
 import AsyncStorage from "@react-native-community/async-storage";
+import base64 from "react-native-base64";
 
 function RecognizeSong(props) {
   const [recording, setRecording] = React.useState();
-
+  const [audioPath, setAudioPath] = React.useState();
   async function startRecording() {
     try {
       console.log("Requesting permissions..");
@@ -40,14 +41,25 @@ function RecognizeSong(props) {
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
     const uri = recording.getURI();
-    // AsyncStorage.getAllKeys((err, keys) => {
-    //   AsyncStorage.multiGet(keys, (error, stores) => {
-    //     stores.map((result, i, store) => {
-    //       console.log({ [store[i][0]]: store[i][1] });
-    //       return true;
-    //     });
-    //   });
-    // });
+    const cloudUri = base64.encode(uri);
+    //let base64Aud = `data:audio/mpeg;base64,${cloudUri}`;
+    let fd = new FormData();
+    base.decode();
+    await fd.append("file", { url: uri, type: "audio/mpeg" });
+    //   fetch(apiUrl, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'multipart/form-data',
+
+    //     },
+    //     body: formData
+    // }).then(response => {
+    //     console.error(response)
+    // }).catch(err => {
+    //     console.error(err)
+    // })
+
+    console.log(fd);
     console.log("Recording stopped and stored at", uri);
   }
 

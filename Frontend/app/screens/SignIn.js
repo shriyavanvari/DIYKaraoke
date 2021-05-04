@@ -42,10 +42,11 @@ function SignIn({ navigation }) {
       username: email,
       password: password,
     };
-    const result = await accountAPI.signIn(data);
-    storeToken(result.data.refresh);
-    setAccessToken(result.data.access);
-    setRefreshToken(result.data.refresh);
+    /***UNCOMMENT */
+    // const result = await accountAPI.signIn(data);
+    // storeToken(result.data.refresh);
+    // setAccessToken(result.data.access);
+    // setRefreshToken(result.data.refresh);
     //if (!result.ok) return alert("Could not sign in successfully");
     alert("Success");
 
