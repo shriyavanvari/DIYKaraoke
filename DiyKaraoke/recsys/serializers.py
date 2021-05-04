@@ -14,6 +14,11 @@ class itembasedInputSerializer(serializers.Serializer):
     song_id3 = serializers.CharField(required=True)
     song_id4 = serializers.CharField(required=True)
     song_id5 = serializers.CharField(required=True)
+    song_id6 = serializers.CharField(required=True)
+    song_id7 = serializers.CharField(required=True)
+    song_id8 = serializers.CharField(required=True)
+    song_id9 = serializers.CharField(required=True)
+    song_id10 = serializers.CharField(required=True)
 
 
 class utilityMatrixSerializer(serializers.Serializer):

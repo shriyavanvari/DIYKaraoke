@@ -118,21 +118,30 @@ class RecSysViewSet(viewsets.GenericViewSet):
     def admin_import_itembased(self, request):
         serializer = itembasedInputSerializer(data=request.data)
         if serializer.is_valid():
-
             if (recommendation.objects.filter(id=request.data['id'])).exists():
                 the_song = recommendation.objects.filter(id=request.data['id'])
                 the_song.update(song_id1=request.data['song_id1'],
                                 song_id2=request.data['song_id2'],
                                 song_id3=request.data['song_id3'],
                                 song_id4=request.data['song_id4'],
-                                song_id5=request.data['song_id5'])
+                                song_id5=request.data['song_id5'],
+                                song_id6=request.data['song_id6'],
+                                song_id7=request.data['song_id7'],
+                                song_id8=request.data['song_id8'],
+                                song_id9=request.data['song_id9'],
+                                song_id10=request.data['song_id10'])
             else:
                 recommendation.objects.create(id=request.data['id'],
                                               song_id1=request.data['song_id1'],
                                               song_id2=request.data['song_id2'],
                                               song_id3=request.data['song_id3'],
                                               song_id4=request.data['song_id4'],
-                                              song_id5=request.data['song_id5'])
+                                              song_id5=request.data['song_id5'],
+                                              song_id6=request.data['song_id6'],
+                                              song_id7=request.data['song_id7'],
+                                              song_id8=request.data['song_id8'],
+                                              song_id9=request.data['song_id9'],
+                                              song_id10=request.data['song_id10'])
         return Response(serializer.data)
 
     @action(methods=['POST'], detail=False)
@@ -141,7 +150,8 @@ class RecSysViewSet(viewsets.GenericViewSet):
         json_data = []
         if songs:
             for song in songs:
-                recommended = {song.song_id1, song.song_id2, song.song_id3, song.song_id4, song.song_id5}
+                recommended = {song.song_id1, song.song_id2, song.song_id3, song.song_id4, song.song_id5,
+                               song.song_id6, song.song_id7, song.song_id8, song.song_id9, song.song_id10}
                 for item in recommended:
                     res = Songs.objects.filter(id=item)
                     for ele in res:

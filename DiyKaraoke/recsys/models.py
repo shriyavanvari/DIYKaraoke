@@ -27,6 +27,12 @@ class recommendation(models.Model):
     song_id3 = models.CharField(max_length=200, blank=True)
     song_id4 = models.CharField(max_length=200, blank=True)
     song_id5 = models.CharField(max_length=200, blank=True)
+    song_id6 = models.CharField(max_length=200, blank=True)
+    song_id7 = models.CharField(max_length=200, blank=True)
+    song_id8 = models.CharField(max_length=200, blank=True)
+    song_id9 = models.CharField(max_length=200, blank=True)
+    song_id10 = models.CharField(max_length=200, blank=True)
+
 
 class karaokeGenerate(models.Model):
     song_id = models.CharField(max_length=200, blank=True)
