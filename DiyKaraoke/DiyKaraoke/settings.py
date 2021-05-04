@@ -25,8 +25,8 @@ SECRET_KEY = '3$)=0v3-puzy^6r3ito=adjnboocd43*(lcufkxe1mj2at5lpy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'songs',
     'rest_framework_simplejwt.token_blacklist',
     'recsys',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'DiyKaraoke.urls'
