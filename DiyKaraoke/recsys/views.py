@@ -67,9 +67,9 @@ class RecSysViewSet(viewsets.GenericViewSet):
                 json_data.append({"id": song.id,
                                   "title": song.title,
                                   "artist": song.artist,
-                                  "albumArt": json.dumps(str(song.albumArt)),
-                                  "file": json.dumps(str(song.file)),
-                                  "lyrics": json.dumps(str(song.lyrics))
+                                  "albumArt": str(song.albumArt),
+                                  "file": str(song.file),
+                                  "lyrics": str(song.lyrics)
                                   })
             return JsonResponse(json_data, safe=False)
         else:
@@ -84,9 +84,9 @@ class RecSysViewSet(viewsets.GenericViewSet):
                 json_data.append({"id": song.id,
                                   "title": song.title,
                                   "artist": song.artist,
-                                  "albumArt": json.dumps(str(song.albumArt)),
-                                  "file": json.dumps(str(song.file)),
-                                  "lyrics": json.dumps(str(song.lyrics))
+                                  "albumArt": str(song.albumArt),
+                                  "file": str(song.file),
+                                  "lyrics": str(song.lyrics)
                                   })
             return JsonResponse(json_data, safe=False)
         else:
@@ -158,9 +158,10 @@ class RecSysViewSet(viewsets.GenericViewSet):
                         json_data.append({"id": ele.id,
                                           "title": ele.title,
                                           "artist": ele.artist,
-                                          "albumArt": json.dumps(str(ele.albumArt)),
-                                          "file": json.dumps(str(ele.file)),
-                                          "lyrics": json.dumps(str(ele.lyrics))
+                                          # "albumArt": json.dumps(str(ele.albumArt)),
+                                          "albumArt": str(ele.albumArt),
+                                          "file": str(ele.file),
+                                          "lyrics": str(ele.lyrics)
                                           })
             return JsonResponse(json_data, safe=False)
         else:
@@ -188,8 +189,8 @@ class RecSysViewSet(viewsets.GenericViewSet):
             json_data = []
             for song in songs:
                 json_data.append({
-                    "albumArt": json.dumps(str(song.albumArt)),
-                    "lyrics": json.dumps(str(song.lyrics)), })
+                    "albumArt": song.albumArt,
+                    "lyrics": song.lyrics, })
             return JsonResponse(json_data, safe=False)
         else:
             return HttpResponse('No karaoke details found.')
