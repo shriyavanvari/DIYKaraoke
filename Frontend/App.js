@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { Button } from "react-native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SignIn from "./app/screens/SignIn";
@@ -13,13 +14,27 @@ import SearchSongs from "./app/screens/SearchSongs";
 import KaraokePlayer from "./app/screens/KaraokePlayer";
 import Option from "./app/screens/Option";
 import RecognizeSong from "./app/screens/RecognizeSong";
-
+import AsyncStorage from "@react-native-community/async-storage";
 const AppNavigator = createStackNavigator(); //
 
 export default function App() {
   return (
     <NavigationContainer>
-      <AppNavigator.Navigator initialRouteName="WelcomeScreen">
+      <AppNavigator.Navigator
+        initialRouteName="WelcomeScreen"
+        screenOptions={({ route, navigation }) => ({
+          // get reference to navigation
+          headerRight: () => (
+            <Button
+              title="Logout"
+              onPress={() => {
+                navigation.navigate("SignIn");
+                AsyncStorage.removeItem("refresh");
+              }}
+            />
+          ),
+        })}
+      >
         <AppNavigator.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
@@ -55,7 +70,16 @@ export default function App() {
         <AppNavigator.Screen
           name="SearchSongs"
           component={SearchSongs}
-          options={{ title: "Songs Playlist" }}
+          // options={{
+          //   headerRight: (navigation) => (
+          //     <Button
+          //       title="Logout"
+          //       onPress={() => {
+          //         navigation.navigate("SignIn");
+          //       }}
+          //     />
+          //   ),
+          // }}
         />
 
         <AppNavigator.Screen
@@ -71,7 +95,7 @@ export default function App() {
         <AppNavigator.Screen
           name="RecognizeSong"
           component={RecognizeSong}
-          options={{ title: "Pick Input" }}
+          options={{ title: "Recognize Song" }}
         />
       </AppNavigator.Navigator>
     </NavigationContainer>

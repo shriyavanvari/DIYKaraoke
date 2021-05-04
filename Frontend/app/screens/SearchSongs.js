@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
 import {
   SafeAreaView,
   View,
@@ -9,9 +8,12 @@ import {
   StatusBar,
   FlatList,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+
+import songAPI from "../api/songs";
 
 function SearchSongs({ navigation }) {
   const [search, setSearch] = useState("");
@@ -135,14 +137,16 @@ function SearchSongs({ navigation }) {
     }
   };
 
+  const onSongPress = async (key) => {
+    const result = await songAPI.incrementFrequency(key);
+    console.log(result.data);
+    //navigation.navigate("KaraokePlayer", { paramKey: { key } });
+  };
+
   renderItem = ({ item, index }) => {
     const key = item.id;
     return (
-      <TouchableWithoutFeedback
-        onPress={() =>
-          navigation.navigate("KaraokePlayer", { paramKey: { key } })
-        }
-      >
+      <TouchableOpacity onPress={() => onSongPress(key)}>
         <View style={styles.cardContainer}>
           <Image
             style={styles.image}
@@ -155,7 +159,7 @@ function SearchSongs({ navigation }) {
             <Text style={styles.artist}>{item.artist}</Text>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   };
 

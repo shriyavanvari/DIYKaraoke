@@ -46,7 +46,7 @@ function SignIn({ navigation }) {
     storeToken(result.data.refresh);
     setAccessToken(result.data.access);
     setRefreshToken(result.data.refresh);
-    if (!result.ok) return alert("Could not sign in successfully");
+    //if (!result.ok) return alert("Could not sign in successfully");
     alert("Success");
 
     navigation.navigate("Option");
