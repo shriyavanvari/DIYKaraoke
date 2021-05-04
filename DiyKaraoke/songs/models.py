@@ -2,7 +2,7 @@ from django.db import models
 from djongo.storage import GridFSStorage
 Seasons_choices = (
     ("Spring","Spring"),
-    ("Summer","summer"),
+    ("Summer","Summer"),
     ("Fall","Fall"),
     ("Winter","Winter"),
 )
@@ -19,13 +19,13 @@ class Songs(models.Model):
     country = models.CharField(max_length= 50,blank = True)
     album = models.CharField(max_length=200,blank = True)
     language = models.CharField(max_length=100,blank = True)
-    time = models.DateTimeField(blank = True)
+    time = models.CharField(max_length=200, blank = True)
     yearReleased = models.IntegerField(max_length=4,blank = True)
     frequency = models.IntegerField(default=0)
-    albumArt = models.ImageField(upload_to='images/',blank = True)
-    lyrics = models.FileField(blank=True)
-    file = models.FileField(upload_to='songs/', storage=gridFS, blank=True)
-    fingerprint = models.FileField(upload_to='fingerprints/', storage=gridFS,blank=True)
+    albumArt = models.CharField(max_length=200,blank = True)
+    lyrics = models.CharField(max_length=200,blank=True)
+    file = models.CharField(max_length=200,blank=True)
+    fingerprint = models.CharField(max_length=200,blank=True)
 
     def __str__(self):
         return self.title

@@ -98,6 +98,7 @@ DATABASES = {
         'NAME': 'songs',
         "CLIENT": {
            "host": "mongodb+srv://sjsuAdmin:Cmpe295Admin@diykaraoke.79gqa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+           #  "host": "mongodb://127.0.0.1:27017/",
         },
     },
     'users_db': {
@@ -155,6 +156,9 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.TokenAuthentication',
         # ====================================================
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.FileUploadParser',
     ]
 }
 
