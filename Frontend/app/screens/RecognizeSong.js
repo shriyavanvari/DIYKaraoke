@@ -12,6 +12,8 @@ import { Audio } from "expo-av";
 import AsyncStorage from "@react-native-community/async-storage";
 import base64 from "react-native-base64";
 
+import songAPI from "../api/songs";
+
 function RecognizeSong(props) {
   const [recording, setRecording] = React.useState();
   const [audioPath, setAudioPath] = React.useState();
@@ -43,23 +45,24 @@ function RecognizeSong(props) {
     const uri = recording.getURI();
     const cloudUri = base64.encode(uri);
     //let base64Aud = `data:audio/mpeg;base64,${cloudUri}`;
-    let fd = new FormData();
-    base.decode();
-    await fd.append("file", { url: uri, type: "audio/mpeg" });
+    // let fd = new FormData();
+    // await fd.append("file", { url: uri, type: "audio/mpeg" });
     //   fetch(apiUrl, {
     //     method: 'POST',
     //     headers: {
     //         'Content-Type': 'multipart/form-data',
 
     //     },
-    //     body: formData
+    //     body: fd
     // }).then(response => {
     //     console.error(response)
     // }).catch(err => {
     //     console.error(err)
     // })
-
-    console.log(fd);
+    const result = await songAPI.songRecognition(uri);
+    console.log("***RESPONSE***");
+    console.log(result.data);
+    //console.log(fd);
     console.log("Recording stopped and stored at", uri);
   }
 

@@ -25,9 +25,22 @@ const getLatestSongs = () => {
   return apiClient.get(endpoint);
 };
 
+const songRecognition = (songURI) => {
+  const endpoint = "/upload/";
+  const data = new FormData();
+  data.append("file", {
+    name: "song",
+    uri: songURI,
+    type: "audio/mpeg",
+  });
+  console.log("in api");
+  console.log(data);
+  return apiClient.post(endpoint, data);
+};
 export default {
   incrementFrequency,
   getItemBasedSongs,
   getLatestSongs,
   getPopularSongs,
+  songRecognition,
 };
