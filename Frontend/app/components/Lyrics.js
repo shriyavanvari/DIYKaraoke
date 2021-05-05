@@ -2,44 +2,48 @@ import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 
 export default function Lyric(props) {
-  const [lyrics, setLyrics] = useState(props.track.lyrics);
+  const [lyrics, setLyrics] = useState(props.lyrics);
   const [currentLine, setCurrentLine] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  //console.log(props);
+  const getData = () => {
+    const uri = props.track.lyrics;
 
-  //   useEffect(() => {
-  //     if(lyrics.length < 1){
-  //         const url = `/lyrics/${song.title.split(" ").map(piece => piece.toLowerCase()).join("-")}.json`
-  //         axios.get(url)
-  //             .then(res => {
-  //                 lyrics = res.data;
-  //                 setState.lyrics(lyrics);
-  //                 dispatch({type: actions.SET_LYRICS, payload: {id: songId, lyrics}})
-  //             })
-  //             .catch(err => {
-  //                 setState.error(true)
-  //             })
-  //             .finally(() => {
-  //                 setState.loading(false);
-  //             })
-  //     }else{
-  //         setState.lyrics(lyrics);
-  //     }
+    fetch(uri, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (myJson) {
+        setLyrics(myJson.fragments);
+      });
+  };
 
-  //     setState.currentLine(0);
-  // }, [props.track]);
+  useEffect(() => {
+    getData();
+  }, []);
 
   useEffect(() => {
     const currentTime = props.position;
-    if (lyrics.length > 0) {
+    if (lyrics && lyrics.length > 0) {
       let current = lyrics.findIndex(
         (lyrics) => currentTime >= lyrics.begin && currentTime < lyrics.end
       );
+      if (!currentLine) {
+        setCurrentLine(0);
+      }
 
       //fix last second error
       if (current === -1) {
-        setCurrentLine(lyrics.length - 1);
+        if (currentLine === 0) {
+          setCurrentLine(0);
+        } else {
+          setCurrentLine(lyrics.length - 1);
+        }
       } else {
         setCurrentLine(current);
       }
@@ -49,8 +53,11 @@ export default function Lyric(props) {
 
   return (
     <View>
-      {/* <Text>{currentLine}</Text> */}
-      <Text>{lyrics[currentLine].lines} </Text>
+      {lyrics && lyrics.length > 0 ? (
+        <Text>{lyrics[currentLine].lines}</Text>
+      ) : (
+        <Text>Fetching..</Text>
+      )}
     </View>
   );
 }

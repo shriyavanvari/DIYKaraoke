@@ -20,12 +20,13 @@ export default function Player(props) {
   const tracks = props.tracks;
   const [sound, setSound] = useState();
   const [playback, setPlayback] = useState();
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(null);
   const [position, setPosition] = useState(0);
   const [currentTrackNumber, setCurrentTrackNumber] = useState(
     props.tracks.findIndex((track) => props.selectedTrackNumber == track.id)
   );
+  const [lyrics, setLyrics] = useState([]);
 
   React.useEffect(() => {
     return sound
@@ -41,17 +42,34 @@ export default function Player(props) {
     setDuration(status.durationMillis);
     setPosition(status.positionMillis);
   };
+  const getData = () => {
+    const uri = props.tracks[currentTrackNumber].lyrics;
+
+    fetch(uri, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (myJson) {
+        return myJson.fragments;
+      });
+  };
 
   const playCurrentSong = async () => {
     console.log("Loading Sound");
     console.log(props);
-    //console.log(tracks[currentTrackNumber].audioUrl);
     const { sound } = await Audio.Sound.createAsync(
       { uri: tracks[currentTrackNumber].file },
       { shouldPlay: isPlaying },
       onPlaybackStatusUpdate
     );
     setSound(sound);
+    const ly = await getData();
+    setLyrics(ly);
     await sound.playAsync();
   };
 
@@ -134,9 +152,15 @@ export default function Player(props) {
         title={tracks[currentTrackNumber].title}
         artist={tracks[currentTrackNumber].artist}
       />
-      <Text onPress={playCurrentSong} style={styles.startKaraoke}>
+      {/* <Text onPress={playCurrentSong} style={styles.startKaraoke}>
         Start Karaoke!
-      </Text>
+      </Text> */}
+      <TouchableOpacity onPress={playCurrentSong}>
+        <Image
+          source={require("../assets/karaoke_icon.png")}
+          style={styles.startKaraoke}
+        />
+      </TouchableOpacity>
       {/* <Text>{getProgress()}</Text> */}
       {/* <SeekBar
         currentPosition={position}
@@ -177,10 +201,10 @@ export default function Player(props) {
         </TouchableOpacity>
         <View style={{ width: 40 }} />
       </View>
-      {/* <Lyrics
+      <Lyrics
         track={props.tracks[currentTrackNumber]}
         position={position / 1000}
-      /> */}
+      />
     </View>
   );
 }
@@ -192,10 +216,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#B19CD9",
   },
   startKaraoke: {
-    color: "rgba(255, 255, 255, 0.72)",
-    fontSize: 20,
+    height: 80,
+    width: 80,
+    borderRadius: 47,
+    marginBottom: 10,
     marginTop: 10,
-    fontWeight: "bold",
   },
   playButton: {
     height: 72,

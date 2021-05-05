@@ -30,10 +30,6 @@ function SearchSongs({ navigation }) {
     setFilteredTracks(result.data);
   }, []);
 
-  const updateSearch = (search) => {
-    setSearch(search);
-  };
-
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
     if (text) {
@@ -68,8 +64,8 @@ function SearchSongs({ navigation }) {
   const renderItem = ({ item, index }) => {
     const key = item.id;
     return (
-      <TouchableOpacity onPress={() => onSongPress(key)}>
-        <View style={styles.cardContainer}>
+      <TouchableOpacity onPress={() => onSongPress(key)} key={index}>
+        <View style={styles.cardContainer} key={index}>
           <Image
             style={styles.image}
             source={{
@@ -129,8 +125,10 @@ const styles = StyleSheet.create({
   },
   searchAreaContainer: {
     backgroundColor: "#B19CD9",
+    borderTopColor: "#B19CD9",
     borderBottomColor: "#B19CD9",
     marginBottom: 8,
+    marginTop: 8,
   },
   searchArea: {
     // paddingBottom: 20,
@@ -138,7 +136,8 @@ const styles = StyleSheet.create({
   },
   searchArea1: {
     backgroundColor: "white",
-    borderColor: "black",
+    borderColor: "#B19CD9",
+    borderRadius: 5,
     borderWidth: 1,
     borderBottomWidth: 1,
   },
