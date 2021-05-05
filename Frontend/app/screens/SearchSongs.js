@@ -166,12 +166,12 @@ function SearchSongs({ navigation }) {
         containerStyle={styles.searchAreaContainer}
         inputContainerStyle={styles.searchArea1}
         style={styles.searchArea}
-        placeholder="Type Here..."
+        placeholder="Search Songs..."
         onChangeText={(text) => searchFilterFunction(text)}
         value={search}
         color="black"
       />
-
+      <Text style={styles.header}>Songs you may like</Text>
       <View>
         <FlatList
           data={filteredTracks}
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight,
     alignContent: "center",
+    backgroundColor:"#B19CD9"
   },
   item: {
     backgroundColor: "#f9c2ff",
@@ -202,22 +203,23 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   searchAreaContainer:{
-    backgroundColor:"white",
-    borderColor:"white",
-    borderWidth:0
+    backgroundColor:"#B19CD9",
+   borderBottomColor:"#B19CD9",
+   marginBottom:8
   },
   searchArea: {
     // paddingBottom: 20,
-    backgroundColor: "#CE9DD9",
+    backgroundColor: "white",
   },
   searchArea1:{
-    backgroundColor: "#CE9DD9",
+    backgroundColor: "white",
     borderColor:"black",
     borderWidth:1,
+    borderBottomWidth:1,
   },
-  textHeader: {
-    color: "deeppink",
-    marginTop: 20,
+  header: {
+    color: "white",
+    marginBottom: 10,
     fontSize: 20,
     fontWeight: "bold",
   },
