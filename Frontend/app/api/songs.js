@@ -1,4 +1,6 @@
 import apiClient from "./client";
+import * as FileSystem from "expo-file-system";
+
 const incrementFrequency = (songId) => {
   const endpoint = "/recsys/increase_listen_count/";
   const data = {
@@ -25,17 +27,34 @@ const getLatestSongs = () => {
   return apiClient.get(endpoint);
 };
 
-const songRecognition = (songURI) => {
-  const endpoint = "/upload/";
-  const data = new FormData();
-  data.append("file", {
-    name: "song",
-    uri: songURI,
-    type: "audio/mpeg",
-  });
-  console.log("in api");
-  console.log(data);
-  return apiClient.post(endpoint, data);
+const songRecognition = async (songURI) => {
+  // const endpoint = "/upload/";
+  // const data = new FormData();
+  // data.append("file", {
+  //   name: "song",
+  //   uri: songURI,
+  //   type: "audio/mpeg",
+  // });
+  // console.log("in api");
+  // console.log(data);
+  // return apiClient.post(endpoint, data);
+  let headers = {
+    "content-type": "multipart/form-data",
+  };
+
+  let options = {
+    headers: headers,
+    httpMethod: "POST",
+    uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+    fieldName: "file",
+  };
+  const endpoint = "http://10.0.0.42:8000/upload/";
+  try {
+    let upload = await FileSystem.uploadAsync(endpoint, songURI, options);
+    console.log(upload);
+  } catch (err) {
+    console.log(err);
+  }
 };
 export default {
   incrementFrequency,

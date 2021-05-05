@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#4d4dff",
+    backgroundColor: "#B19CD9",
   },
   startKaraoke: {
     color: "rgba(255, 255, 255, 0.72)",
