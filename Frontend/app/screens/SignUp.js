@@ -48,6 +48,7 @@ function SignUp({ navigation }) {
           placeholder="Password"
           placeholderTextColor="#003f5c"
           onChangeText={(password) => setPassword(password)}
+          secureTextEntry={true}
         />
       </View>
       <View style={styles.inputView}>
@@ -56,6 +57,7 @@ function SignUp({ navigation }) {
           placeholder="Confirm Password"
           placeholderTextColor="#003f5c"
           onChangeText={(password) => setPassword(password)}
+          secureTextEntry={true}
         />
       </View>
       <TouchableOpacity>

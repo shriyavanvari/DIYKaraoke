@@ -108,7 +108,7 @@ function SearchSongs({ navigation }) {
     ]);
   }, []);
 
-  updateSearch = (search) => {
+  const updateSearch = (search) => {
     setSearch(search);
   };
 
@@ -135,7 +135,7 @@ function SearchSongs({ navigation }) {
     }
   };
 
-  renderItem = ({ item, index }) => {
+  const renderItem = ({ item, index }) => {
     const key = item.id;
     return (
       <TouchableWithoutFeedback
@@ -163,10 +163,13 @@ function SearchSongs({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <SearchBar
+        containerStyle={styles.searchAreaContainer}
+        inputContainerStyle={styles.searchArea1}
         style={styles.searchArea}
         placeholder="Type Here..."
         onChangeText={(text) => searchFilterFunction(text)}
         value={search}
+        color="black"
       />
 
       <View>
@@ -198,9 +201,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
   },
+  searchAreaContainer:{
+    backgroundColor:"white",
+    borderColor:"white",
+    borderWidth:0
+  },
   searchArea: {
     // paddingBottom: 20,
-    //backgroundColor: "deeppink",
+    backgroundColor: "#CE9DD9",
+  },
+  searchArea1:{
+    backgroundColor: "#CE9DD9",
+    borderColor:"black",
+    borderWidth:1,
   },
   textHeader: {
     color: "deeppink",
