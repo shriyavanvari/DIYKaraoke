@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from "react-native";
 import { Audio } from "expo-av";
 
@@ -147,7 +148,13 @@ export default function Player(props) {
         songId={tracks[currentTrackNumber].id}
         navigation={props.navigation}
       />
-      <AlbumArt url={tracks[currentTrackNumber].albumArt} />
+      {/* <AlbumArt url={tracks[currentTrackNumber].albumArt} /> */}
+      <View styles={styles.albumArtcontainer}>
+        <Image
+          style={styles.albumArtimage}
+          source={{ uri: tracks[currentTrackNumber].albumArt }}
+        ></Image>
+      </View>
       <TrackDetails
         title={tracks[currentTrackNumber].title}
         artist={tracks[currentTrackNumber].artist}
@@ -208,6 +215,9 @@ export default function Player(props) {
     </View>
   );
 }
+const { width, height } = Dimensions.get("window");
+const imageSize = width - 48;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -236,5 +246,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 8,
+  },
+  albumArtcontainer: {
+    paddingLeft: 24,
+    paddingRight: 24,
+  },
+  albumArtimage: {
+    width: imageSize,
+    height: imageSize,
   },
 });
