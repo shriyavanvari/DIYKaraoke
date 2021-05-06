@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import { Audio } from "expo-av";
 
@@ -62,7 +63,6 @@ export default function Player(props) {
 
   const playCurrentSong = async () => {
     console.log("Loading Sound");
-    console.log(props);
     const { sound } = await Audio.Sound.createAsync(
       { uri: tracks[currentTrackNumber].file },
       { shouldPlay: isPlaying },
@@ -73,24 +73,6 @@ export default function Player(props) {
     setLyrics(ly);
     await sound.playAsync();
   };
-
-  // const playCurrentSong = async () => {
-  //   //playing audio for first time
-  //   if (!sound) {
-  //     const playback = new Audio.Sound();
-  //     const status = await playback.loadAsync(
-  //       { uri: tracks[currentTrackNumber].audioUrl },
-  //       { shouldPlay: true }
-  //     );
-
-  //     setPlayback(playback);
-  //     setSound(status);
-  //   } else {
-  //     if (sound.isLoaded && sound.isPlaying) {
-  //       console.log("Audio is already playing");
-  //     }
-  //   }
-  // };
 
   const onPlayPausePress = async () => {
     if (!sound) {
@@ -150,10 +132,47 @@ export default function Player(props) {
       />
       {/* <AlbumArt url={tracks[currentTrackNumber].albumArt} /> */}
       <View styles={styles.albumArtcontainer}>
-        <Image
+        <ImageBackground
           style={styles.albumArtimage}
           source={{ uri: tracks[currentTrackNumber].albumArt }}
-        ></Image>
+          imageStyle={{ opacity: 0.7 }}
+        >
+          <View style={styles.controlContainer}>
+            <View style={{ width: 40 }} />
+            <TouchableOpacity onPress={handlePreviousTrack}>
+              <Image
+                source={require("../assets/ic_skip_previous_white_36pt.png")}
+              />
+            </TouchableOpacity>
+            <View style={{ width: 20 }} />
+
+            {isPlaying ? (
+              <TouchableOpacity onPress={onPlayPausePress}>
+                <View style={styles.playButton}>
+                  <Image
+                    source={require("../assets/ic_pause_white_48pt.png")}
+                  />
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={onPlayPausePress}>
+                <View style={styles.playButton}>
+                  <Image
+                    source={require("../assets/ic_play_arrow_white_48pt.png")}
+                  />
+                </View>
+              </TouchableOpacity>
+            )}
+            <View style={{ width: 20 }} />
+            <TouchableOpacity onPress={handleNextTrack}>
+              <Image
+                // style={{ opacity: 0.3 }}
+                source={require("../assets/ic_skip_next_white_36pt.png")}
+              />
+            </TouchableOpacity>
+            <View style={{ width: 40 }} />
+          </View>
+        </ImageBackground>
       </View>
       <TrackDetails
         title={tracks[currentTrackNumber].title}
@@ -175,39 +194,6 @@ export default function Player(props) {
         onSeek={seek}
         onSlidingStart={() => setIsPlaying(false)}
       /> */}
-      <View style={styles.controlContainer}>
-        <View style={{ width: 40 }} />
-        <TouchableOpacity onPress={handlePreviousTrack}>
-          <Image
-            source={require("../assets/ic_skip_previous_white_36pt.png")}
-          />
-        </TouchableOpacity>
-        <View style={{ width: 20 }} />
-
-        {isPlaying ? (
-          <TouchableOpacity onPress={onPlayPausePress}>
-            <View style={styles.playButton}>
-              <Image source={require("../assets/ic_pause_white_48pt.png")} />
-            </View>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={onPlayPausePress}>
-            <View style={styles.playButton}>
-              <Image
-                source={require("../assets/ic_play_arrow_white_48pt.png")}
-              />
-            </View>
-          </TouchableOpacity>
-        )}
-        <View style={{ width: 20 }} />
-        <TouchableOpacity onPress={handleNextTrack}>
-          <Image
-            // style={{ opacity: 0.3 }}
-            source={require("../assets/ic_skip_next_white_36pt.png")}
-          />
-        </TouchableOpacity>
-        <View style={{ width: 40 }} />
-      </View>
       <Lyrics
         track={props.tracks[currentTrackNumber]}
         position={position / 1000}
@@ -221,7 +207,6 @@ const imageSize = width - 48;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#B19CD9",
   },
@@ -229,8 +214,8 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 47,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 20,
+    marginTop: 20,
   },
   playButton: {
     height: 72,
@@ -245,14 +230,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 8,
+    paddingBottom: 20,
   },
   albumArtcontainer: {
     paddingLeft: 24,
     paddingRight: 24,
   },
-  albumArtimage: {
+  albumArtimageContainer: {
     width: imageSize,
     height: imageSize,
+    justifyContent: "center",
+  },
+  albumArtimage: {
+    opacity: 1,
+    width: imageSize,
+    height: imageSize,
+    justifyContent: "center",
+    opacity: 0.7,
   },
 });

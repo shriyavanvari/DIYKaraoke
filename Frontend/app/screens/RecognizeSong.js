@@ -60,9 +60,8 @@ function RecognizeSong(props) {
     //     console.error(err)
     // })
     const result = await songAPI.songRecognition(uri);
-    console.log("***RESPONSE***");
+    console.log("Song recognition response:");
     console.log(result.data);
-    //console.log(fd);
     console.log("Recording stopped and stored at", uri);
   }
 

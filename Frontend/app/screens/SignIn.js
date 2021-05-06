@@ -37,7 +37,6 @@ function SignIn({ navigation }) {
   };
 
   const handleSignIn = async () => {
-    console.log("sign in");
     const data = {
       username: email,
       password: password,

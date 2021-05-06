@@ -22,13 +22,16 @@ function ItemBasedRecommendations(props) {
   const [tracks, setTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     //response
     //set tracks to the response.data
     //setfiltered tracks to response
-    const result = await songAPI.getItemBasedSongs(props.route.params.songId);
-    setTracks(result.data);
-    setFilteredTracks(result.data);
+    const fetchData = async () => {
+      const result = await songAPI.getItemBasedSongs(props.route.params.songId);
+      setTracks(result.data);
+      setFilteredTracks(result.data);
+    };
+    fetchData();
   }, []);
 
   const updateSearch = (search) => {

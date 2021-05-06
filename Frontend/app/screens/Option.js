@@ -13,7 +13,7 @@ function Option({ navigation }) {
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo} source={require("../assets/karaoke.png")} />
       <Text>
-        Select An Option{"\n"}
+        {"\n"}
         {"\n"}
       </Text>
 
@@ -22,7 +22,7 @@ function Option({ navigation }) {
           style={[
             styles.box,
             {
-              transform: [{ translateY: -120 }],
+              transform: [{ translateY: -90 }],
             },
           ]}
           onPress={() => navigation.navigate("RecognizeSong")}
@@ -49,7 +49,7 @@ function Option({ navigation }) {
           style={[
             styles.box,
             {
-              transform: [{ translateY: -120 }],
+              transform: [{ translateY: -70 }],
             },
           ]}
           onPress={() => navigation.navigate("SearchSongs")}
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: "#B19CD9",
   },
   image: {
     width: 120,
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     width: 120,
     borderRadius: 5,
     marginVertical: 5,
-    backgroundColor: "#61dafb",
+    // backgroundColor: "#61dafb",
     alignItems: "center",
     justifyContent: "center",
   },

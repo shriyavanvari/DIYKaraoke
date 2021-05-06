@@ -19,14 +19,12 @@ function SignUp({ navigation }) {
   const [password, setPassword] = useState("");
 
   const handleSignUp = async () => {
-    console.log("sign up");
     const data = {
       email: email,
       password: password,
       fname: fname,
       lname: lname,
     };
-    console.log(data);
     const result = await accountAPI.signUp(data);
     //if (!result.ok) return alert("Could not sign up successfully");
     alert("Success");

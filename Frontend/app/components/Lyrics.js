@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Animated, View, Text, StyleSheet } from "react-native";
 
 export default function Lyric(props) {
-  const [lyrics, setLyrics] = useState(props.lyrics);
+  const [lyrics, setLyrics] = useState([]);
   const [currentLine, setCurrentLine] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -28,10 +28,14 @@ export default function Lyric(props) {
 
   useEffect(() => {
     getData();
-    if (props.lyrics) {
+    if (props.lyrics && lyrics.length > 0) {
       setLyricsArray(props.lyrics[0].lines[0].trim().split(" "));
     }
   }, []);
+
+  useEffect(() => {
+    setLyrics([]);
+  }, [props.track]);
 
   useEffect(() => {
     const currentTime = props.position;
@@ -51,10 +55,9 @@ export default function Lyric(props) {
           setCurrentLine(lyrics.length - 1);
         }
       } else {
-        console.log("HERE");
         setCurrentLine(current);
       }
-      console.log(current, currentLine, currentTime);
+      // console.log(current, currentLine, currentTime);
     }
   }, [props.position]);
 

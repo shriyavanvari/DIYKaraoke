@@ -28,16 +28,6 @@ const getLatestSongs = () => {
 };
 
 const songRecognition = async (songURI) => {
-  // const endpoint = "/upload/";
-  // const data = new FormData();
-  // data.append("file", {
-  //   name: "song",
-  //   uri: songURI,
-  //   type: "audio/mpeg",
-  // });
-  // console.log("in api");
-  // console.log(data);
-  // return apiClient.post(endpoint, data);
   let headers = {
     "content-type": "multipart/form-data",
   };

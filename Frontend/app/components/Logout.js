@@ -1,17 +1,8 @@
 import React from "react";
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableHighlight,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const Logout = ({ navigation }) => {
-  console.log(navigation);
   const onLogoutPress = () => {
     navigation.navigate("SignIn");
   };

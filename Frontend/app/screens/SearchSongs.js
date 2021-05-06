@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
-  VirtualizedList,
   StyleSheet,
   Text,
   StatusBar,
@@ -11,8 +10,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import Logout from "../components/Logout";
 
 import songAPI from "../api/songs";
 
@@ -21,13 +18,16 @@ function SearchSongs({ navigation }) {
   const [tracks, setTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     //response
     //set tracks to the response.data
     //setfiltered tracks to response
-    const result = await songAPI.getPopularSongs();
-    setTracks(result.data);
-    setFilteredTracks(result.data);
+    const fetchData = async () => {
+      const result = await songAPI.getPopularSongs();
+      setTracks(result.data);
+      setFilteredTracks(result.data);
+    };
+    fetchData();
   }, []);
 
   const searchFilterFunction = (text) => {
