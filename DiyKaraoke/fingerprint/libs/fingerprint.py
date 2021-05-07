@@ -95,11 +95,7 @@ def fingerprint(channel_samples, Fs=DEFAULT_FS,
     local_maxima = get_2D_peaks(arr2D, plot=plots, amp_min=amp_min)
 
     msg = '   local_maxima: %d of frequency & time pairs'
-<<<<<<< HEAD
-  # print(msg, attrs=['dark']) % len(local_maxima)
-=======
-    print (colored(msg, attrs=['dark']) % len(local_maxima))
->>>>>>> ecb897453c47ec8774286ecb6d624c42be1e2cfe
+    print msg
 
     # return hashes
     return generate_hashes(local_maxima, fan_value=fan_value)

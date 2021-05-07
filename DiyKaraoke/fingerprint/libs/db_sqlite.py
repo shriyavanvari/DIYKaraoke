@@ -2,13 +2,9 @@ from libs.db import Database
 from libs.config import get_config
 import sqlite3
 import sys
-<<<<<<< HEAD
+
 from itertools import izip_longest
 # from termcolor import colored
-=======
-from itertools import zip_longest
-from termcolor import colored
->>>>>>> ecb897453c47ec8774286ecb6d624c42be1e2cfe
 
 class SqliteDatabase(Database):
   TABLE_SONGS = 'songs'
@@ -20,17 +16,17 @@ class SqliteDatabase(Database):
   def connect(self):
     config = get_config()
 
-    self.conn = sqlite3.connect(config['db.file'])
+    self.conn = sqlite3.connect("fingerprint/db/fingerprints2.db")
     self.conn.text_factory = str
 
     self.cur = self.conn.cursor()
 
-    print('sqlite - connection opened')
+    # print('sqlite - connection opened')
 
   def __del__(self):
     self.conn.commit()
     self.conn.close()
-    print('sqlite - connection has been closed')
+    # print('sqlite - connection has been closed')
 
   def query(self, query, values = []):
     self.cur.execute(query, values)

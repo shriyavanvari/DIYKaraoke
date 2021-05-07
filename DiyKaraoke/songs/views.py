@@ -22,7 +22,7 @@ class SongsViewSet(viewsets.ModelViewSet):
 class FileUploadView(views.APIView):
     parser_classes = [MultiPartParser,FormParser]
     queryset = Songs.objects.all()
-<<<<<<< HEAD
+
 
     def post(self, request, format=None):
         # if request.method == 'POST':
@@ -42,33 +42,14 @@ class FileUploadView(views.APIView):
         # writer = subprocess.run(['python2','fingerprint/recognize-from-file.py'],capture_output=True,text=True).stdout
         # # for write in writer.stdout:
         # print(writer)
-        output = subprocess.check_output(['python2', 'fingerprint/recognize-from-file.py'],text=True,capture_output=True)
-
-        print(output)
-
-        print("here")
-        songs = Songs.objects.filter(title='7 rings')
-
+        output = subprocess.Popen(['python2', 'fingerprint/recognize-from-file.py'],stdout=subprocess.PIPE)
+        song_name = ''
+        for line in output.stdout:
+            song_name = line
+            print (song_name)
+        song_name = song_name[:-1].decode('utf-8')
+        songs = Songs.objects.filter(title=song_name)
         song_json = serializers.serialize('json',songs)
-
         print(song_json)
-=======
->>>>>>> ecb897453c47ec8774286ecb6d624c42be1e2cfe
-
-    def post(self, request, format=None):
-        print(request.FILES['file'])
-        file_obj = request.FILES['file']
-        file_obj = AudioSegment.from_file(file_obj,format='m4a')
-        file_obj.export("audio1.mp3",format='mp3')
-        #TODO write subprocess for passing the data to songs recognition and getting the title
-        subprocess.call(['python','fingerprint/recognize-from-file.py','-f','audio1.mp3'])
-        song_obj = Songs.objects.filter(title = '7 rings')
-        song_json = serializers.serialize('json',song_obj)
-        print(type(song_json))
-
-<<<<<<< HEAD
-
         return Response(song_json, status=204)
-=======
-        return Response(song_json, status=204)
->>>>>>> ecb897453c47ec8774286ecb6d624c42be1e2cfe
+
