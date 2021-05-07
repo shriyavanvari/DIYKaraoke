@@ -2,8 +2,13 @@ from libs.db import Database
 from libs.config import get_config
 import sqlite3
 import sys
+<<<<<<< HEAD
 from itertools import izip_longest
 # from termcolor import colored
+=======
+from itertools import zip_longest
+from termcolor import colored
+>>>>>>> ecb897453c47ec8774286ecb6d624c42be1e2cfe
 
 class SqliteDatabase(Database):
   TABLE_SONGS = 'songs'
