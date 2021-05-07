@@ -1,9 +1,9 @@
-from db import Database
-from config import get_config
+from libs.db import Database
+from libs.config import get_config
 import sqlite3
 import sys
 from itertools import izip_longest
-from termcolor import colored
+# from termcolor import colored
 
 class SqliteDatabase(Database):
   TABLE_SONGS = 'songs'
@@ -20,12 +20,12 @@ class SqliteDatabase(Database):
 
     self.cur = self.conn.cursor()
 
-    print(colored('sqlite - connection opened','white',attrs=['dark']))
+    print('sqlite - connection opened')
 
   def __del__(self):
     self.conn.commit()
     self.conn.close()
-    print(colored('sqlite - connection has been closed','white',attrs=['dark']))
+    print('sqlite - connection has been closed')
 
   def query(self, query, values = []):
     self.cur.execute(query, values)

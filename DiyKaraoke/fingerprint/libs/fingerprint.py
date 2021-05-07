@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
-from termcolor import colored
+#from termcolor import colored
 from scipy.ndimage.filters import maximum_filter
 from scipy.ndimage.morphology import (generate_binary_structure, iterate_structure, binary_erosion)
 from operator import itemgetter
@@ -95,7 +95,7 @@ def fingerprint(channel_samples, Fs=DEFAULT_FS,
     local_maxima = get_2D_peaks(arr2D, plot=plots, amp_min=amp_min)
 
     msg = '   local_maxima: %d of frequency & time pairs'
-    print colored(msg, attrs=['dark']) % len(local_maxima)
+  # print(msg, attrs=['dark']) % len(local_maxima)
 
     # return hashes
     return generate_hashes(local_maxima, fan_value=fan_value)

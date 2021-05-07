@@ -59,7 +59,7 @@ class RecSysViewSet(viewsets.GenericViewSet):
 
     @action(methods=['GET'], detail=False)
     def get_recommendations(self, request):
-        songs = Songs.objects.all().order_by('-frequency')
+        songs = Songs.objects.all()
         if songs:
             json_data = []
             for song in songs:

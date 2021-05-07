@@ -5,3 +5,8 @@ class SongsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Songs
         fields = "__all__"
+
+class recognition_serializer(serializers.Serializer):
+    title=serializers.CharField(required=True)
+
+
