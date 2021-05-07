@@ -17,6 +17,7 @@ import songAPI from "../api/songs";
 function RecognizeSong(props) {
   const [recording, setRecording] = React.useState();
   const [audioPath, setAudioPath] = React.useState();
+  const [song, setSong] = React.useState("");
   async function startRecording() {
     try {
       console.log("Requesting permissions..");
@@ -44,24 +45,17 @@ function RecognizeSong(props) {
     await recording.stopAndUnloadAsync();
     const uri = recording.getURI();
     const cloudUri = base64.encode(uri);
-    //let base64Aud = `data:audio/mpeg;base64,${cloudUri}`;
-    // let fd = new FormData();
-    // await fd.append("file", { url: uri, type: "audio/mpeg" });
-    //   fetch(apiUrl, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'multipart/form-data',
 
-    //     },
-    //     body: fd
-    // }).then(response => {
-    //     console.error(response)
-    // }).catch(err => {
-    //     console.error(err)
-    // })
     const result = await songAPI.songRecognition(uri);
-    console.log("Song recognition response:");
-    console.log(result.data);
+    const response = await songAPI.getSong();
+    console.log(response.data);
+    setSong("One Last Time");
+    ////check result here
+    // console.log(result);
+    // console.log(result.data);
+    // console.log(result.data.title);
+    // setSong(result.data.title);
+
     console.log("Recording stopped and stored at", uri);
   }
 
@@ -72,6 +66,8 @@ function RecognizeSong(props) {
         title={recording ? "Stop Recording" : "Start Recording"}
         onPress={recording ? stopRecording : startRecording}
       />
+
+      <Text>{song}</Text>
     </SafeAreaView>
   );
 }
@@ -79,18 +75,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: "#B19CD9",
   },
   image: {
     width: 120,
     height: 150,
     opacity: 0.3,
-  },
-  scrollContentContainer: {
-    //   flex:1,
-    //   alignItems:"center"
-    //   // paddingTop:15,
-    //   // // paddingBottom: 60
-  },
+   
   box: {
     height: 120,
     width: 120,
@@ -99,11 +90,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#61dafb",
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom:400,
   },
   text: {
     fontSize: 14,
     fontWeight: "bold",
     margin: 8,
+    marginTop: 50,
     color: "#000",
     textAlign: "center",
   },

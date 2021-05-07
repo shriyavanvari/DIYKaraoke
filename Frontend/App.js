@@ -57,19 +57,23 @@ export default function App() {
         <AppNavigator.Screen
           name="SignUp1"
           component={SignUp1}
-          options={{ title: "Register" }}
+          options={{ title: "Favourite Artists" }}
         />
         <AppNavigator.Screen
           name="SignUp2"
           component={SignUp2}
-          options={{ title: "Register" }}
+          options={{ title: "Favourite Genres" }}
         />
         <AppNavigator.Screen
           name="SignUp3"
           component={SignUp3}
           options={{ title: "Register" }}
         />
-        <AppNavigator.Screen name="SearchSongs" component={SearchSongs} />
+        <AppNavigator.Screen
+          name="SearchSongs"
+          component={SearchSongs}
+          options={{ title: "Popular Songs" }}
+        />
 
         <AppNavigator.Screen
           name="KaraokePlayer"
@@ -89,6 +93,7 @@ export default function App() {
         <AppNavigator.Screen
           name="ItemRecommendations"
           component={ItemBasedRecommendations}
+          options={{ title: "Similar Songs" }}
         />
       </AppNavigator.Navigator>
     </NavigationContainer>

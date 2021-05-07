@@ -39,12 +39,17 @@ const songRecognition = async (songURI) => {
     fieldName: "file",
   };
   const endpoint = "http://10.0.0.42:8000/upload/";
-  try {
-    let upload = await FileSystem.uploadAsync(endpoint, songURI, options);
-    console.log(upload);
-  } catch (err) {
-    console.log(err);
-  }
+
+  let upload = await FileSystem.uploadAsync(endpoint, songURI, options);
+  return upload;
+  //change url here ****
+  // const endpoint1 = "http://10.0.0.42:8000/upload/get_recognition";
+};
+const getSong = () => {
+  const endpoint1 = "/upload/";
+  // const result = apiClient.get(endpoint1);
+  // console.log(result);
+  return apiClient.get(endpoint1);
 };
 export default {
   incrementFrequency,
@@ -52,4 +57,5 @@ export default {
   getLatestSongs,
   getPopularSongs,
   songRecognition,
+  getSong,
 };

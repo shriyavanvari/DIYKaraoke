@@ -24,6 +24,7 @@ function SearchSongs({ navigation }) {
     //setfiltered tracks to response
     const fetchData = async () => {
       const result = await songAPI.getPopularSongs();
+      console.log(result);
       setTracks(result.data);
       setFilteredTracks(result.data);
     };
