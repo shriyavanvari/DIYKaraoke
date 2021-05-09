@@ -41,6 +41,7 @@ const songRecognition = async (songURI) => {
   const endpoint = "http://10.0.0.42:8000/upload/";
 
   let upload = await FileSystem.uploadAsync(endpoint, songURI, options);
+  console.log(upload);
   return upload;
   //change url here ****
   // const endpoint1 = "http://10.0.0.42:8000/upload/get_recognition";

@@ -9,7 +9,6 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import { Icon } from "react-native-elements";
 import { Checkbox } from "react-native-paper";
 
 function SignUp1({ navigation }) {

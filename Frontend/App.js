@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Button } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
+import { LogBox } from "react-native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import SignIn from "./app/screens/SignIn";
@@ -20,6 +21,8 @@ import ItemBasedRecommendations from "./app/screens/ItemBasedRecommendations";
 const AppNavigator = createStackNavigator(); //
 
 export default function App() {
+  LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+  LogBox.ignoreAllLogs(); //Ignore all log notifications
   return (
     <NavigationContainer>
       <AppNavigator.Navigator

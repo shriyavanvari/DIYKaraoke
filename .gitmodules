@@ -1,0 +1,3 @@
+[submodule "Machine Learning Modules/Song Recognition"]
+	path = Machine Learning Modules/Song Recognition
+	url = https://github.com/shriyavanvari/DIYKaraoke.git
