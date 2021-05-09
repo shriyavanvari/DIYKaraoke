@@ -15,16 +15,29 @@ expo start
 
 ## Steps to train Karaoke Generation Module
 cd Machine Learning Modules/ Karaoke Generation
+### Place your dataset
+path/to/dataset/
+  +- instruments/
+  |    +- 01_foo_inst.wav
+  |    +- 02_bar_inst.mp3
+  |    +- ...
+  +- mixtures/
+       +- 01_foo_mix.wav
+       +- 02_bar_mix.mp3
+       +- ...
+### Train a model
+python train.py --dataset path/to/dataset --reduction_rate 0.5 --mixup_rate 0.5 --gpu 0
 
-##Steps to generate Karaoke Track
+## Steps to generate Karaoke Track
+python inference.py --input path/to/an/audio/file
 
 ## Steps to recognize song
 
 ### Recognize existing mp3 file:
-python  recognize-from-file.py <mp3 song>
+python  recognize-from-file.py path/to/an/audio/file
 
 ### Recognize song playing on microphone:
-python  recognize-from-microphone.py <mp3 song>
+python  recognize-from-microphone.py 
 
 ## Steps to generate recommendations
 
