@@ -53,6 +53,26 @@ python  recognize-from-file.py path/to/an/audio/file
 ### Recognize song playing on microphone:
 python  recognize-from-microphone.py 
 
+## Steps to run recommendation system module in the backend
+
+### To setup venv:
+
+pip install dnspython  
+
+pip install djongo 
+
+pip3 install djangorestframework
+
+python -m pip install Pillow
+
+### To run:
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py runserver
+
 ## Steps to generate recommendations
 
 Open the Song_Recommender.ipynb on Jupyter notebook and run
